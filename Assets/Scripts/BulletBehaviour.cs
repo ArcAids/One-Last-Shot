@@ -8,12 +8,16 @@ public class BulletBehaviour : MonoBehaviour, IElementalShootable
     [SerializeField] float damage=1;
     [SerializeField] Elements element;
     Rigidbody2D rigid;
+    SpriteRenderer model;
 
-    public Elements Element => element;
+    public Elements Element { get => element; private set { element = value;
+            model.color = ElementalUtility.GetColor(value);
+        } }
 
     private void Awake()
     {
         rigid=GetComponent<Rigidbody2D>();
+        model=GetComponent<SpriteRenderer>();
     }
 
 
@@ -36,5 +40,10 @@ public class BulletBehaviour : MonoBehaviour, IElementalShootable
             Debug.Log("Target:" + collision.name);
             target.TakeDamage(damage, Element);
         }
+    }
+
+    public void SwitchElement(Elements element)
+    {
+        Element = element;
     }
 }

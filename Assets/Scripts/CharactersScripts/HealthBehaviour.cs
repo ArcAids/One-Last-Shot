@@ -6,7 +6,7 @@ public class HealthBehaviour : MonoBehaviour, ITakeDamage
     [SerializeField]
     protected float maxHealth;
 
-    public float Health { get => health; set { health = value; } }
+    public float Health { get => health; protected set { health = value; } }
 
     public float MaxHealth => maxHealth;
 

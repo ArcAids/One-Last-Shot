@@ -2,17 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElementalEventController : MonoBehaviour
+[CreateAssetMenu]
+public class ElementalEventController : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Elements currentElement;
+
+    List<IElemental> elementals;
+
+    public Elements CurrentElement { get => currentElement; private set { Switch(value); } }
+
+    public void RegisterElmentSwitch(IElemental elemental)
     {
-        
+        if(elementals==null)
+            elementals = new List<IElemental>();
+        if (!elementals.Contains(elemental))
+            elementals.Add(elemental);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DeregisterElmentSwitch(IElemental elemental)
     {
-        
+        elementals.Remove(elemental);
     }
+
+    void Switch(Elements element)
+    {
+        currentElement = element;
+        foreach (var elemental in elementals)
+        {
+            elemental.SwitchElement(element);
+        }
+    }
+}
+
+
+public enum Elements
+{
+    Fire, Ice, Slash
 }

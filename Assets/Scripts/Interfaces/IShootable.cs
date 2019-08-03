@@ -7,8 +7,7 @@ public interface IShootable
     void Shoot();
 }
 
-public interface IElementalShootable: IShootable
+public interface IElementalShootable: IShootable, IElemental
 {
     Elements Element { get;  }
-
 }

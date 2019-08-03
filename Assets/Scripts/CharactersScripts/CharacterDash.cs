@@ -1,20 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(CharacterMovement))]
+[RequireComponent(typeof(CharacterMovement), typeof(TrailRenderer), typeof(SpriteRenderer))]
 public class CharacterDash : MonoBehaviour
 {
+
     [SerializeField] float dashSpeed=5;
     [SerializeField] float dashDuration=1;
     [SerializeField] float dashCoolDown=1;
     [SerializeField] bool invulnerableWhileDashing=true;
+    [Space]
+    [SerializeField] Image rechargeCircle;
+    [Space]
+    [SerializeField] TrailRenderer trail;
+    SpriteRenderer body;
+
     IDashInput input;
     CharacterMovement movement;
     Vector3 movementDirection;
 
     bool canDash=true;
     float dashTime;
+    float dashRecharge;
+
     bool dashing=false;
 
     public bool Dashing { get => dashing; set
@@ -26,10 +36,20 @@ public class CharacterDash : MonoBehaviour
                 OnDashEnd();
         } }
 
+    public float DashRecharge { get => dashRecharge; private set
+        {
+            dashRecharge = value;
+            rechargeCircle.fillAmount = 1-(value / dashCoolDown);
+        }
+    }
+
+
     private void Awake()
     {
         input = GetComponent<IDashInput>();
         movement = GetComponent<CharacterMovement>();
+        body = GetComponentInChildren<SpriteRenderer>();
+        trail=GetComponent<TrailRenderer>();
         movementDirection.z = 0;
         dashing = false;
     }
@@ -37,7 +57,7 @@ public class CharacterDash : MonoBehaviour
     private void Update()
     {
         input.SetInputs();
-        if (input.Dash && canDash)
+        if (input.Dash && canDash )
             Dash();
 
         if(Dashing)
@@ -46,15 +66,16 @@ public class CharacterDash : MonoBehaviour
             if (dashTime > dashDuration)
             {
                 Dashing = false;
-                dashTime = dashCoolDown;
+                DashRecharge= dashCoolDown;
+                dashTime = 0;
                 canDash = false;
             }
-            transform.position += movementDirection * Time.deltaTime * dashSpeed;
+            transform.position += movementDirection.normalized * Time.deltaTime * dashSpeed;
         }
         else if(!canDash)
         {
-            dashTime -= Time.deltaTime;
-            if (dashTime<=0)
+            DashRecharge -= Time.deltaTime;
+            if (DashRecharge<=0)
             {
                 canDash = true;
             }
@@ -68,7 +89,8 @@ public class CharacterDash : MonoBehaviour
         {
             movementDirection.x = input.HorizontalInput;
             movementDirection.y = input.VerticalInput;
-            Dashing = true;
+            if(movementDirection.x !=0 || movementDirection.y!= 0)
+                Dashing = true;
         }       
 
     }
@@ -76,11 +98,14 @@ public class CharacterDash : MonoBehaviour
     void OnDashEnd()
     {
         movement.EnableMovement();
+        trail.enabled = false;
     }
 
     void OnDashStart()
     {
         movement.DisableMovement();
+        trail.Clear();
+        trail.enabled = true;
     }
 
 }

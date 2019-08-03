@@ -9,14 +9,10 @@
 
 }
 
-public interface ITakeElementalDamage
+public interface ITakeElementalDamage : ITakeDamage ,IElemental
 {
     Elements DamageType { get; }
-    void TakeDamage(float damage, Elements element=Elements.Slash);
+    void TakeDamage(float damage, Elements element);
 }
 
 
-public enum Elements
-{
-    Fire, Ice, Slash
-}

@@ -2,20 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponController : MonoBehaviour
+public class WeaponController : MonoBehaviour, IElemental
 { 
     [SerializeField] float turnSpeed;
     [SerializeField] Transform gunPivot;
     [SerializeField] Transform gunHolder;
-    [SerializeField] IWeapon weapon;
+    [SerializeField] IElementalWeapon weapon;
+    [SerializeField] ElementalEventController elementController;
     IWeaponInput input;
 
     Vector3 aimDirection;
     float aimAngle;
+
+
     private void Start()
     {
         input = GetComponent<IWeaponInput>();
 
+    }
+
+    private void OnEnable()
+    {
+        elementController.RegisterElmentSwitch(this);
+    }
+
+    private void OnDisable()
+    {
+        elementController.DeregisterElmentSwitch(this);
     }
 
     private void Update()
@@ -26,7 +39,7 @@ public class WeaponController : MonoBehaviour
             PullTrigger();
     }
 
-    void Equip(IWeapon weapon)
+    void Equip(IElementalWeapon weapon)
     {
         this.weapon = weapon;
         weapon.Equip();
@@ -35,6 +48,7 @@ public class WeaponController : MonoBehaviour
         weapon.gunTransform.localRotation= Quaternion.identity;
 
     }
+
 
     void Aim()
     {
@@ -55,10 +69,15 @@ public class WeaponController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        IWeapon weapon=collision.GetComponent<IWeapon>();
+        IElementalWeapon weapon=collision.GetComponent<IElementalWeapon>();
         if (weapon!=null)
         {
             Equip(weapon);
         }
+    }
+
+    public void SwitchElement(Elements element)
+    {
+        weapon.SwitchElement(element);
     }
 }
