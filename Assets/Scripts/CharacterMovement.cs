@@ -10,6 +10,7 @@ public class CharacterMovement : MonoBehaviour
     ICharacterInput input;
     Vector3 movementDirection;
 
+    bool canMove=true;
     private void Start()
     {
         input = GetComponent<ICharacterInput>();
@@ -19,19 +20,34 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if(canMove)
+            Move();
+        Flip();
     }
 
-    public void Move()
+    void Flip()
+    {
+        if (input.MouseXPosition > transform.position.x)
+            bodySprite.flipY = true;
+        else
+            bodySprite.flipY = false;
+    }
+    void Move()
     {
         input.SetInputs();
         movementDirection.x = input.HorizontalInput;
         movementDirection.y = input.VerticalInput;
 
         transform.position += movementDirection * Time.deltaTime * movementSpeed;
-        if (input.MouseXPosition > transform.position.x)
-            bodySprite.flipY=true;
-        else
-            bodySprite.flipY=false;
+       
+    }
+
+    public void DisableMovement()
+    {
+        canMove = false;
+    }
+    public void EnableMovement()
+    {
+        canMove = true;
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput
+public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, IDashInput
 {
     [SerializeField] Camera cam;
     Vector3 mousePosition;
@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput
     public float MouseYPosition { get; private set; }
 
     public bool shooting { get; private set; }
+
+    public bool Dash { get; private set; }
 
     private void Start()
     {
@@ -34,6 +36,8 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput
         MouseXPosition = mousePosition.x;
         MouseYPosition = mousePosition.y;
         shooting = Input.GetButton("Fire1");
+
+        Dash = Input.GetButton("Fire2");
     }
 
 
