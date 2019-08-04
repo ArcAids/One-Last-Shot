@@ -11,6 +11,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
     [SerializeField] SpriteRenderer hands;
     [SerializeField] Cinemachine.CinemachineVirtualCamera cam;
     [SerializeField] float zoom;
+    [SerializeField] AudioSource audio;
 
     float originalOrthographicSize;
     public Transform gunTransform { get => transform; }
@@ -27,7 +28,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
         Element = Element;
         if(cam==null)
             cam = FindObjectOfType<Cinemachine.CinemachineVirtualCamera>();
-        originalOrthographicSize = cam.m_Lens.OrthographicSize;
+        originalOrthographicSize = 7;
 
     }
     public void Dequip()
@@ -66,6 +67,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
 
             IElementalShootable bullet=Instantiate(bulletPrefab, muzzle.position, muzzle.rotation, null).GetComponent<IElementalShootable>();
             bullet.SwitchElement(Element);
+            audio?.Play();
             bullet.Shoot();
             magazine--;
         }

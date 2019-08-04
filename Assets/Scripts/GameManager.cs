@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
-
-
+    [SerializeField] Transform winScreen;
+    [SerializeField] PlayerController player;
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -15,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     public void YouWin()
     {
-
+        winScreen.gameObject.SetActive(true);
+        player.DisableControls();
     }
 }

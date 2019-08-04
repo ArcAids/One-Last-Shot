@@ -35,11 +35,7 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
     public void SetInputs()
     {
         if (!canControl)
-        {
-            HorizontalInput = 0;
-            VerticalInput = 0;
             return;
-        }
 
         HorizontalInput = Input.GetAxis("Horizontal");
         VerticalInput = Input.GetAxis("Vertical");
@@ -59,10 +55,18 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
     public void DisableControls()
     {
         canControl = false;
+        HorizontalInput = 0;
+        VerticalInput = 0;
+        MouseXPosition = 0;
+        MouseYPosition= 0;
+        Dash = false;
+        ActivateFireElement = false;
+        ActivateIceElement =   false;
+        ActivateSlashElement = false;
+
     }
     public void EnableControls()
     {
-
         canControl = true;
     }
 
