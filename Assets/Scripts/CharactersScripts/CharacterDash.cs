@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(CharacterMovement), typeof(TrailRenderer))]
+[RequireComponent(typeof(CharacterMovement))]
 public class CharacterDash : MonoBehaviour
 {
 
@@ -16,7 +16,7 @@ public class CharacterDash : MonoBehaviour
     [Space]
     [SerializeField] TrailRenderer trail;
     SpriteRenderer body;
-
+    Collider2D collider;
     IDashInput input;
     CharacterMovement movement;
     Vector3 movementDirection;
@@ -49,7 +49,9 @@ public class CharacterDash : MonoBehaviour
         input = GetComponent<IDashInput>();
         movement = GetComponent<CharacterMovement>();
         body = GetComponentInChildren<SpriteRenderer>();
-        trail=GetComponent<TrailRenderer>();
+        collider = GetComponentInChildren<Collider2D>();
+        if (trail==null)
+            trail=GetComponent<TrailRenderer>();
         movementDirection.z = 0;
         dashing = false;
     }
@@ -99,6 +101,7 @@ public class CharacterDash : MonoBehaviour
     {
         movement.EnableMovement();
         trail.enabled = false;
+        collider.enabled = true;
     }
 
     void OnDashStart()
@@ -106,6 +109,7 @@ public class CharacterDash : MonoBehaviour
         movement.DisableMovement();
         trail.Clear();
         trail.enabled = true;
+        collider.enabled = false;
     }
 
 }

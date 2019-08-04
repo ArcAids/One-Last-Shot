@@ -10,13 +10,28 @@ public class AIFollowController : MonoBehaviour, ICharacterInput
 
     public float MouseXPosition { get; private set; }
 
+
+    Vector2 defaultDirection;
     Vector2 direction;
+    private void Awake()
+    {
+        defaultDirection = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
+    }
     public void SetInputs()
     {
-        direction = target.position - transform.position;
+        if (target != null)
+            direction = target.position - transform.position;
+        else
+            direction = defaultDirection;
+
         direction=direction.normalized;
         
         HorizontalInput = direction.x;
         VerticalInput = direction.y;
+    }
+
+    public void SetTarget(Transform target)
+    {
+        this.target = target;
     }
 }

@@ -303,8 +303,8 @@ GameObject:
   - component: {fileID: 1630518110}
   - component: {fileID: 1630518111}
   - component: {fileID: 5611215121199226138}
-  m_Layer: 0
-  m_Name: Enemy
+  m_Layer: 8
+  m_Name: Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -340,6 +340,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
   playerHealth: {fileID: 1039588829502058552}
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 4f0946caf66104a47937beffa4f2dd38, type: 2}
+        m_MethodName: OnDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1039588829522234029}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   notImmuneTo: 2
 --- !u!114 &1039588829522234002
 MonoBehaviour:
@@ -353,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3950cde874ee8ba4fb9a79ee8067b8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 4
+  movementSpeed: 2
   AIControlled: 1
 --- !u!50 &1630518112
 Rigidbody2D:
@@ -426,7 +453,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1, y: 3.1}
+  m_Size: {x: 0.78, y: 2.33}
   m_EdgeRadius: 0
 --- !u!114 &1630518110
 MonoBehaviour:
@@ -485,6 +512,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4747287909328884161}
   - component: {fileID: 2809857626600043984}
+  - component: {fileID: 1661798569}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -543,7 +571,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: -5899927303015767666, guid: 57531fc605f74a046951260e68a2a5c8,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -556,3 +584,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1661798569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6453282633129972635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c2f8520d9c4ee44ab990d69d2f9a909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.5
+  xDirection: 0
+  yDirection: 0.2
+  easeType: 14
+  loopType: 2

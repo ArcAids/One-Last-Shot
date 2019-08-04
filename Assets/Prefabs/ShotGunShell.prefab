@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2943684627420646801}
   - component: {fileID: 5432610507468535994}
   - component: {fileID: 6096090761070306872}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3231851092363298706}
-  m_LocalRotation: {x: 0, y: 0, z: -0.052335896, w: 0.9986295}
+  m_LocalRotation: {x: 0, y: 0, z: -0.078459024, w: 0.99691737}
   m_LocalPosition: {x: -0.0086, y: 0.0249, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 4563698823618510144}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -6}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -9}
 --- !u!212 &1646958425362073576
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 3267493955671301872}
   - component: {fileID: 206803646407685788}
   - component: {fileID: 3267493955671301779}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 4563698823618510144}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 4}
 --- !u!212 &3267493955671301869
 SpriteRenderer:
@@ -282,7 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4563698823618510144}
   - component: {fileID: 4563698823618510151}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ShotGunShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,13 +300,13 @@ Transform:
   m_LocalPosition: {x: 2.167, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4563698824911312900}
+  - {fileID: 5588575764949151907}
   - {fileID: 3267493955671301874}
   - {fileID: 4563698824133749819}
   - {fileID: 4563698825054236045}
-  - {fileID: 4563698825351111244}
-  - {fileID: 4563698824911312900}
   - {fileID: 8537759865963745352}
-  - {fileID: 5588575764949151907}
+  - {fileID: 4563698825351111244}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 4563698824133749817}
   - component: {fileID: 4563698824133749818}
   - component: {fileID: 4563698824133749816}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 4563698823618510144}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4563698824133749823
 SpriteRenderer:
@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 4563698824911312906}
   - component: {fileID: 4563698824911312907}
   - component: {fileID: 4563698824911312905}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,13 +493,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4563698824911312901}
-  m_LocalRotation: {x: 0, y: 0, z: 0.06975647, w: 0.9975641}
+  m_LocalRotation: {x: 0, y: 0, z: 0.10452846, w: 0.9945219}
   m_LocalPosition: {x: -0.0086, y: 0.0249, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 4563698823618510144}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 8}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 12}
 --- !u!212 &4563698824911312904
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 4563698825054236083}
   - component: {fileID: 4563698825054236044}
   - component: {fileID: 4563698825054236082}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 4563698823618510144}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -4}
 --- !u!212 &4563698825054236081
 SpriteRenderer:
@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 4563698825351111282}
   - component: {fileID: 4563698825351111283}
   - component: {fileID: 4563698825351111281}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -765,13 +765,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4563698825351111245}
-  m_LocalRotation: {x: 0, y: 0, z: -0.06975647, w: 0.9975641}
+  m_LocalRotation: {x: 0, y: 0, z: -0.10452837, w: 0.9945219}
   m_LocalPosition: {x: -0.0086, y: 0.0249, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 4563698823618510144}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -8}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -12}
 --- !u!212 &4563698825351111280
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -887,7 +887,7 @@ GameObject:
   - component: {fileID: 8556457805314171094}
   - component: {fileID: 4366344933264050055}
   - component: {fileID: 4112528872695332060}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -901,13 +901,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4844411464189938938}
-  m_LocalRotation: {x: 0, y: 0, z: 0.052335896, w: 0.9986295}
+  m_LocalRotation: {x: 0, y: 0, z: 0.078459114, w: 0.99691737}
   m_LocalPosition: {x: -0.0086, y: 0.0249, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 4563698823618510144}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 6}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 9}
 --- !u!212 &7168963554864344599
 SpriteRenderer:
   m_ObjectHideFlags: 0

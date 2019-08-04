@@ -57,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 10
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,18 +113,18 @@ TextureImporter:
       name: Ghost_0
       rect:
         serializedVersion: 2
-        x: 9
+        x: 18
         y: 0
-        width: 11
-        height: 31
+        width: 22
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1cfb9205536fe374d9bfb3ed4b67695f
+      spriteID: c5fb8b74a9c08754b9aa0b1882abd8f9
       internalID: -5899927303015767666
       vertices: []
       indices: 
@@ -134,18 +134,18 @@ TextureImporter:
       name: Ghost_1
       rect:
         serializedVersion: 2
-        x: 41
+        x: 82
         y: 0
-        width: 11
-        height: 29
+        width: 22
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51c80db585b324f4a9264756cdfaf88c
+      spriteID: 9af00fda11910b04b879a60446193439
       internalID: 6824852377700625651
       vertices: []
       indices: 
@@ -155,18 +155,18 @@ TextureImporter:
       name: Ghost_2
       rect:
         serializedVersion: 2
-        x: 73
+        x: 146
         y: 0
-        width: 11
-        height: 31
+        width: 22
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0157df42a40ab22409f09018a39014f4
+      spriteID: de7247068dfd040429dc9fb644037d38
       internalID: -1720829479360743675
       vertices: []
       indices: 
@@ -176,18 +176,18 @@ TextureImporter:
       name: Ghost_3
       rect:
         serializedVersion: 2
-        x: 105
+        x: 210
         y: 0
-        width: 11
-        height: 29
+        width: 22
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97a41e38393deb344b2bc5754f6391c0
+      spriteID: 00182951273fb6e46a4237640c7aad10
       internalID: 961504700816514905
       vertices: []
       indices: 

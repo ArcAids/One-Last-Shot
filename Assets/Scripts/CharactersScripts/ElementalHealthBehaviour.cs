@@ -3,10 +3,9 @@
 public class ElementalHealthBehaviour : HealthBehaviour, ITakeElementalDamage
 {
     SpriteRenderer body;
-    [SerializeField]
-    Elements notImmuneTo;
+    [SerializeField] Elements notImmuneTo;
     public Elements DamageType { get => notImmuneTo; private set { notImmuneTo = value;
-            body.color=ElementalUtility.GetColor(value);
+            //body.color=ElementalUtility.GetColor(value);
         } }
 
     private void Awake()

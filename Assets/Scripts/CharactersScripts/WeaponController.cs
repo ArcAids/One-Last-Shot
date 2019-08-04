@@ -13,7 +13,7 @@ public class WeaponController : MonoBehaviour, IElemental
     [SerializeField] WeaponsEventController weaponEvent;
     [SerializeField] GunPointer pointer;
 
-
+    Elements currentElement;
     IWeaponInput input;
     CinemachineImpulseSource shaker;
 
@@ -50,6 +50,7 @@ public class WeaponController : MonoBehaviour, IElemental
     {
         this.weapon = weapon;
         weapon.Equip();
+        weapon.SwitchElement(currentElement);
         pointer.Deactivate();
         gunHolder.localScale = new Vector2(1, 1);
         weapon.gunTransform.parent = gunHolder;
@@ -97,6 +98,7 @@ public class WeaponController : MonoBehaviour, IElemental
 
     public void SwitchElement(Elements element)
     {
+        currentElement = element;
         weapon?.SwitchElement(element);
     }
 

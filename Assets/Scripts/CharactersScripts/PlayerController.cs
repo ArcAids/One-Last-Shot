@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
 
     public bool Dash { get; private set; }
 
+    bool canControl=true;
     private void Start()
     {
         if (cam == null)
@@ -28,10 +29,18 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
             if (cam == null)
                 cam = FindObjectOfType<Camera>();
         }
+        canControl = true;
     }
      
     public void SetInputs()
     {
+        if (!canControl)
+        {
+            HorizontalInput = 0;
+            VerticalInput = 0;
+            return;
+        }
+
         HorizontalInput = Input.GetAxis("Horizontal");
         VerticalInput = Input.GetAxis("Vertical");
         if(cam!=null)
@@ -47,5 +56,14 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
         ActivateSlashElement = Input.GetKey(KeyCode.Alpha3);
     }
 
+    public void DisableControls()
+    {
+        canControl = false;
+    }
+    public void EnableControls()
+    {
+
+        canControl = true;
+    }
 
 }
