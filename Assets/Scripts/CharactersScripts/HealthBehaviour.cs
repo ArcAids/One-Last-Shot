@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBehaviour : MonoBehaviour, ITakeDamage
 {
     float health;
     [SerializeField]
     protected float maxHealth;
+    [Space]
+    [SerializeField] Image playerHealth;
 
-    public float Health { get => health; protected set { health = value; } }
+    public float Health { get => health; protected set { health = value; if(playerHealth!=null) playerHealth.fillAmount = (value / MaxHealth); } }
 
     public float MaxHealth => maxHealth;
 
@@ -15,6 +18,10 @@ public class HealthBehaviour : MonoBehaviour, ITakeDamage
         Health = MaxHealth;
     }
 
+    private void Start()
+    {
+        
+    }
     public void OnDeath()
     {
         gameObject.SetActive(false);

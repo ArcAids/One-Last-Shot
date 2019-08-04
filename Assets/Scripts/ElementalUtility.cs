@@ -13,7 +13,7 @@ public static class ElementalUtility
                 return Color.red;
 
             case Elements.Ice:
-                return Color.blue;
+                return Color.cyan;
 
             case Elements.Slash:
                return Color.white;
@@ -23,4 +23,6 @@ public static class ElementalUtility
 
         }
     }
+
+
 }

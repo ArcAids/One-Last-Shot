@@ -2,11 +2,13 @@
 
 public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
 {
-    [SerializeField] BulletBehaviour bulletPrefab;
+    [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform muzzle;
     [SerializeField] Elements element;
     [SerializeField] int magazine=1;
     [SerializeField] SpriteRenderer model;
+    [SerializeField] Sprite heldSprite;
+    Sprite originalSprite;
     public Transform gunTransform { get => transform; }
     public Elements Element { get => element; set
         {
@@ -17,12 +19,17 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
     private void Awake()
     {
         model = GetComponent<SpriteRenderer>();
-        Element = Element;   
+        Element = Element;
+        originalSprite = model.sprite;
 
     }
     public void Dequip()
     {
         transform.parent = null;
+        model.sprite = originalSprite;
+        Color color = model.color;
+        color.a = 0.4f;
+        model.color = color;
         Invoke("Disable",1);
     }
 
@@ -30,13 +37,14 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
     {
         GetComponent<Collider2D>().enabled = true;
         gameObject.SetActive(false);
-        //Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     public void Equip()
     {
-        magazine = 1;
         GetComponent<Collider2D>().enabled = false;
+        if (heldSprite != null)
+            model.sprite = heldSprite;
     }
 
     public void Shoot()
@@ -44,7 +52,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
         if (magazine > 0)
         {
 
-            IElementalShootable bullet=Instantiate(bulletPrefab, muzzle.position, muzzle.rotation, null);
+            IElementalShootable bullet=Instantiate(bulletPrefab, muzzle.position, muzzle.rotation, null).GetComponent<IElementalShootable>();
             bullet.SwitchElement(Element);
             bullet.Shoot();
             magazine--;

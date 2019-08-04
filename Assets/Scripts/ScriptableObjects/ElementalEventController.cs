@@ -24,7 +24,7 @@ public class ElementalEventController : ScriptableObject
         elementals.Remove(elemental);
     }
 
-    void Switch(Elements element)
+    public void Switch(Elements element)
     {
         currentElement = element;
         foreach (var elemental in elementals)

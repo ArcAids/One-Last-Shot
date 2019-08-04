@@ -11,7 +11,7 @@ public class ElementalHealthBehaviour : HealthBehaviour, ITakeElementalDamage
 
     private void Awake()
     {
-        body = GetComponent<SpriteRenderer>();
+        body = GetComponentInChildren<SpriteRenderer>();
         DamageType = notImmuneTo;
         Health = MaxHealth;
     }

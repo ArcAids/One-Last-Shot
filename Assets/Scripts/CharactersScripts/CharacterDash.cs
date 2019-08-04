@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(CharacterMovement), typeof(TrailRenderer), typeof(SpriteRenderer))]
+[RequireComponent(typeof(CharacterMovement), typeof(TrailRenderer))]
 public class CharacterDash : MonoBehaviour
 {
 
