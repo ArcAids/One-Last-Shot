@@ -25,6 +25,20 @@ public class HealthBehaviour : MonoBehaviour, ITakeDamage
     {
         
     }
+
+    public void DisableInASecond()
+    {
+        Invoke("Disable", 3);
+
+    }
+
+    void Disable()
+    {
+        GetComponent<Collider2D>().enabled = true;
+        gameObject.SetActive(false);
+        Destroy(gameObject);
+    }
+
     public virtual void OnDeath()
     {
         isAlive = false;

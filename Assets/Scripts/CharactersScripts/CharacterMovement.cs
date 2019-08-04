@@ -27,8 +27,10 @@ public class CharacterMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(canMove)
+        if (canMove)
             rigid.velocity = movementDirection * movementSpeed;
+        else
+            rigid.velocity = Vector2.zero;
     }
 
     private void Update()

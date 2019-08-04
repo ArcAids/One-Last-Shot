@@ -9,6 +9,8 @@ public class AIAttack : MonoBehaviour
     [SerializeField] float damage;
     [SerializeField] float delay;
 
+    bool canAttack=true;
+
     ITakeDamage victim;
     bool close;
     private void OnTriggerEnter2D(Collider2D collision)
@@ -23,10 +25,15 @@ public class AIAttack : MonoBehaviour
         }
     }
 
+    public void DisableAttack()
+    {
+        canAttack = false;
+    }
+
     IEnumerator AttemptHit(ITakeDamage victim)
     {
         yield return new WaitForSeconds(delay);
-        if(close)
+        if(close && canAttack)
             victim.TakeDamage(damage);
     }
     private void OnTriggerExit2D(Collider2D collision)

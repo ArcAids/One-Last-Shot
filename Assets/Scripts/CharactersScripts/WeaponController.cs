@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Cinemachine;
+﻿using Cinemachine;
 using UnityEngine;
+
 
 public class WeaponController : MonoBehaviour, IElemental
 { 
@@ -12,6 +11,7 @@ public class WeaponController : MonoBehaviour, IElemental
     [SerializeField] ElementalEventController elementController;
     [SerializeField] WeaponsEventController weaponEvent;
     [SerializeField] GunPointer pointer;
+    
 
     Elements currentElement;
     IWeaponInput input;
@@ -78,6 +78,7 @@ public class WeaponController : MonoBehaviour, IElemental
             return;
 
         weapon.Shoot();
+       
         shaker.GenerateImpulse();
         weaponEvent.OnWeaponShot();
         weapon.Dequip();

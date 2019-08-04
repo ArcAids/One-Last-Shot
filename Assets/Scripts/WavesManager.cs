@@ -16,6 +16,7 @@ public class WavesManager : MonoBehaviour, IEnemyDeathListener
     [SerializeField] List<Wave> wavesData;
     [SerializeField] float delayBeforeWaves;
     [SerializeField] EnemyDeathEvent deathEvent;
+    [SerializeField] TMPro.TMP_Text waver;
     EnemyManager enemyManager;
 
     int enemiesAlive;
@@ -56,7 +57,10 @@ public class WavesManager : MonoBehaviour, IEnemyDeathListener
     {
         wave.totalEnemies = wave.enemies.Count + (wave.boss==null?0:1);
         enemiesAlive = wave.totalEnemies;
+        waver.gameObject.SetActive(true);
+        waver.text = "Wave "+(currentWave+1);
         yield return new WaitForSeconds(delayBeforeWaves);
+        waver.gameObject.SetActive(false);
         foreach (var enemy in wave.enemies)
         {
             yield return new WaitForSeconds(wave.delayBetweenSpawns);

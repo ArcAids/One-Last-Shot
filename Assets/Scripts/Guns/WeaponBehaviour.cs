@@ -12,6 +12,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
     [SerializeField] Cinemachine.CinemachineVirtualCamera cam;
     [SerializeField] float zoom;
     [SerializeField] AudioSource audio;
+    [SerializeField] UnityEvent onShot;
 
     float originalOrthographicSize;
     public Transform gunTransform { get => transform; }
@@ -40,7 +41,13 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
         color.a = 0.4f;
         cam.m_Lens.OrthographicSize = originalOrthographicSize;
         model.color = color;
-        Invoke("Disable",1);
+        DisableInASecond();
+    }
+
+    public void DisableInASecond()
+    {
+        Invoke("Disable",2);
+
     }
 
     void Disable()
@@ -67,7 +74,9 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
 
             IElementalShootable bullet=Instantiate(bulletPrefab, muzzle.position, muzzle.rotation, null).GetComponent<IElementalShootable>();
             bullet.SwitchElement(Element);
-            audio?.Play();
+            if(audio!=null)
+                audio?.Play();
+            onShot.Invoke();
             bullet.Shoot();
             magazine--;
         }
