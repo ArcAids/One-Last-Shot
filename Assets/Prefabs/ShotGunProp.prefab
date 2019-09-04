@@ -185,8 +185,13 @@ MonoBehaviour:
   model: {fileID: 0}
   hands: {fileID: 7576292184001251796}
   cam: {fileID: 0}
-  zoom: 5.5
+  zoom: 6.5
   audio: {fileID: 8854467778610273719}
+  onShot:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!61 &2811436610383733484
 BoxCollider2D:
   m_ObjectHideFlags: 0

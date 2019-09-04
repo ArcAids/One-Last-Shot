@@ -11,7 +11,7 @@ public class GunManager : MonoBehaviour, IWeaponShotListener
 
     private void OnEnable()
     {
-        weaponsEventController.RegisterElmentSwitch(this);
+        weaponsEventController.RegisterElementSwitch(this);
     }
 
     private void OnDisable()

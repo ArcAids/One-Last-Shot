@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(CharacterMovement))]
+[RequireComponent(typeof(Rigidbody2D), typeof(CharacterController))]
 public class CharacterDash : MonoBehaviour
 {
 
@@ -15,8 +15,8 @@ public class CharacterDash : MonoBehaviour
     [SerializeField] Image rechargeCircle;
     [Space]
     [SerializeField] TrailRenderer trail;
-    SpriteRenderer body;
-    Collider2D collider;
+    Rigidbody2D rigidBody;
+    new Collider2D collider;
     IDashInput input;
     CharacterMovement movement;
     Vector3 movementDirection;
@@ -48,7 +48,8 @@ public class CharacterDash : MonoBehaviour
     {
         input = GetComponent<IDashInput>();
         movement = GetComponent<CharacterMovement>();
-        body = GetComponentInChildren<SpriteRenderer>();
+        rigidBody = GetComponent<Rigidbody2D>();
+        
         collider = GetComponentInChildren<Collider2D>();
         if (trail==null)
             trail=GetComponent<TrailRenderer>();
@@ -58,7 +59,7 @@ public class CharacterDash : MonoBehaviour
 
     private void Update()
     {
-        input.SetInputs();
+        input.SetMovementInputs();
         if (input.Dash && canDash )
             Dash();
 
@@ -72,7 +73,6 @@ public class CharacterDash : MonoBehaviour
                 dashTime = 0;
                 canDash = false;
             }
-            transform.position += movementDirection.normalized * Time.deltaTime * dashSpeed;
         }
         else if(!canDash)
         {
@@ -99,17 +99,20 @@ public class CharacterDash : MonoBehaviour
 
     void OnDashEnd()
     {
-        movement.EnableMovement();
+        movement?.EnableMovement();
         trail.enabled = false;
         collider.enabled = true;
+        rigidBody.velocity = Vector3.zero;
     }
 
     void OnDashStart()
     {
-        movement.DisableMovement();
+        movement?.DisableMovement();
+        rigidBody.velocity = movementDirection.normalized * dashSpeed;
         trail.Clear();
         trail.enabled = true;
-        collider.enabled = false;
+        if(invulnerableWhileDashing)
+            collider.enabled = false;
     }
 
 }

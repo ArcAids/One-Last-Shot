@@ -5106,13 +5106,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1039588829522234031}
+  - component: {fileID: 1630518110}
   - component: {fileID: 1039588829522234001}
   - component: {fileID: 1039588829522234002}
+  - component: {fileID: 1630518111}
   - component: {fileID: 1630518112}
   - component: {fileID: 1630518113}
   - component: {fileID: 1630518114}
-  - component: {fileID: 1630518110}
-  - component: {fileID: 1630518111}
   - component: {fileID: 5611215121199226138}
   m_Layer: 8
   m_Name: Ghost
@@ -5138,6 +5138,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1630518110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039588829522234029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13dec560f8bde134db1d4f467b9c011c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &1039588829522234001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5249,6 +5262,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 2
   AIControlled: 1
+--- !u!114 &1630518111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039588829522234029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d30efbce231e240b2ac661a7bb5371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  damage: 1
+  delay: 0.5
 --- !u!50 &1630518112
 Rigidbody2D:
   serializedVersion: 4
@@ -5322,34 +5350,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.78, y: 2.33}
   m_EdgeRadius: 0
---- !u!114 &1630518110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039588829522234029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dec560f8bde134db1d4f467b9c011c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
---- !u!114 &1630518111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039588829522234029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d30efbce231e240b2ac661a7bb5371, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  damage: 1
-  delay: 0.5
 --- !u!95 &5611215121199226138
 Animator:
   serializedVersion: 3

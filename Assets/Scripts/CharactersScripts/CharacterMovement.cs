@@ -5,14 +5,12 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] float movementSpeed;
-    [SerializeField] bool AIControlled = false;
     Animator animator;
     SpriteRenderer bodySprite;
     ICharacterInput input;
     Rigidbody2D rigid;
     Vector3 movementDirection;
     bool canMove=true;
-
 
     readonly int walkBoolHash = Animator.StringToHash("Walking");
 
@@ -27,19 +25,17 @@ public class CharacterMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (canMove)
+        if(canMove)
             rigid.velocity = movementDirection * movementSpeed;
-        else
-            rigid.velocity = Vector2.zero;
     }
 
     private void Update()
     {
         if (canMove)
-            Move();
+            TakeMoveInput();
         else
             movementDirection = Vector3.zero;
-        
+
         Flip();
         if (movementDirection.x!= 0 || movementDirection.y != 0)
             animator.SetBool(walkBoolHash, true);
@@ -49,34 +45,27 @@ public class CharacterMovement : MonoBehaviour
 
     void Flip()
     {
-        if (AIControlled)
-        {
-             if (input.HorizontalInput > 0)
-                bodySprite.flipX = false;
-            else
-                bodySprite.flipX = true;
-        }
+        if (input.MouseXPosition > transform.position.x)
+            bodySprite.flipX = false;
         else
-        {
-            if (input.MouseXPosition > transform.position.x)
-                bodySprite.flipX = false;
-            else
-                bodySprite.flipX = true;
-        }
+            bodySprite.flipX = true;
     }
-    void Move()
+
+    void TakeMoveInput()
     {
-        input.SetInputs();
+        input.SetMovementInputs();
         movementDirection.x = input.HorizontalInput;
         movementDirection.y = input.VerticalInput;
+        movementDirection=movementDirection.normalized;
     }
 
     public void DisableMovement()
     {
-        canMove = false;
+        canMove= false;
+        rigid.velocity = Vector3.zero;
     }
     public void EnableMovement()
     {
-        canMove = true;
+        canMove= true;
     }
 }

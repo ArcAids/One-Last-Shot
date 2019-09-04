@@ -5243,7 +5243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 6
-  AIControlled: 1
+  faceCursor: 1
 --- !u!50 &6785312818181607071
 Rigidbody2D:
   serializedVersion: 4
@@ -5330,6 +5330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  eatsCorpse: 1
 --- !u!114 &6785312818181607072
 MonoBehaviour:
   m_ObjectHideFlags: 0

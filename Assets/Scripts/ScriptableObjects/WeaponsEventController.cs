@@ -6,7 +6,7 @@ using UnityEngine;
 public class WeaponsEventController : ScriptableObject
 {
     List<IWeaponShotListener> listeners;
-    public void RegisterElmentSwitch(IWeaponShotListener elemental)
+    public void RegisterElementSwitch(IWeaponShotListener elemental)
     {
         if (listeners == null)
             listeners = new List<IWeaponShotListener>();
@@ -21,6 +21,8 @@ public class WeaponsEventController : ScriptableObject
 
     public void OnWeaponShot()
     {
+        if (listeners == null)
+            return;
         foreach (var listener in listeners)
         {
             listener.OnShot();

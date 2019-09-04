@@ -40,9 +40,9 @@ public class WeaponController : MonoBehaviour, IElemental
 
     private void Update()
     {
-        input.SetInputs();
+        input.SetWeaponInputs();
         Aim();
-        if(input.shooting)
+        if(input.Shooting)
             PullTrigger();
     }
 
@@ -78,11 +78,10 @@ public class WeaponController : MonoBehaviour, IElemental
             return;
 
         weapon.Shoot();
-       
-        shaker.GenerateImpulse();
-        weaponEvent.OnWeaponShot();
         weapon.Dequip();
         weapon = null;
+        shaker.GenerateImpulse();
+        weaponEvent.OnWeaponShot();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
