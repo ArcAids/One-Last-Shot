@@ -6,6 +6,7 @@ public class CellFusion : MonoBehaviour
 {
     [SerializeField] EnemyDeathEvent enemyDeath;
     [SerializeField] public int id;
+    [SerializeField] public int priority;
     [SerializeField] public float delay;
     [SerializeField] GameObject healthBar;
     bool close=false, canFuse=true;
@@ -13,7 +14,7 @@ public class CellFusion : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         victim = collision.GetComponent<CellFusion>();
-        if (victim != null && victim.id==id)
+        if (victim != null && victim.id==id && priority<=victim.priority)
         {
             Debug.Log("collision!");
             close = true;
@@ -47,7 +48,8 @@ public class CellFusion : MonoBehaviour
             TweenScale scale = GetComponent<TweenScale>();
             scale.xPercentage = 1.5f;
             scale.yPercentage = 1.5f;
-            GetComponent<ElementalHealthBehaviour>().Heal(1);
+            priority--;
+            GetComponent<ElementalHealthBehaviour>().Heal(5);
             GetComponent<CharacterMovement>().AddSpeed(1);
             healthBar.SetActive(true);
             enemyDeath.OnDeath();

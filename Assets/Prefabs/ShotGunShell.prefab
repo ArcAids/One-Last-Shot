@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -241,6 +241,7 @@ MonoBehaviour:
   speed: 50
   damage: 1
   lifeTime: 0.2
+  penetration: 1
 --- !u!1 &3267493955671301868
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +294,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -482,6 +483,7 @@ MonoBehaviour:
   speed: 50
   damage: 1
   lifeTime: 0.2
+  penetration: 1
 --- !u!1 &4563698823618510145
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,7 +594,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -781,6 +783,7 @@ MonoBehaviour:
   speed: 50
   damage: 1
   lifeTime: 0.2
+  penetration: 1
 --- !u!1 &4563698824911312901
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,7 +836,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1022,6 +1025,7 @@ MonoBehaviour:
   speed: 50
   damage: 1
   lifeTime: 0.2
+  penetration: 1
 --- !u!1 &4563698825054236046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,7 +1078,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1263,6 +1267,7 @@ MonoBehaviour:
   speed: 50
   damage: 1
   lifeTime: 0.2
+  penetration: 1
 --- !u!1 &4563698825351111245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,7 +1320,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1504,6 +1509,7 @@ MonoBehaviour:
   speed: 50
   damage: 1
   lifeTime: 0.2
+  penetration: 1
 --- !u!1 &4844411464189938938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,7 +1562,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1745,3 +1751,4 @@ MonoBehaviour:
   speed: 50
   damage: 1
   lifeTime: 0.2
+  penetration: 1

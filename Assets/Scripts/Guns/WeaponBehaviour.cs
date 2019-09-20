@@ -11,7 +11,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
     [SerializeField] SpriteRenderer hands;
     [SerializeField] Cinemachine.CinemachineVirtualCamera cam;
     [SerializeField] float zoom;
-    [SerializeField] AudioSource audio;
+    [SerializeField] new AudioSource audio;
     [SerializeField] UnityEvent onShot;
 
     float originalOrthographicSize;
@@ -29,7 +29,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
         Element = Element;
         if(cam==null)
             cam = FindObjectOfType<Cinemachine.CinemachineVirtualCamera>();
-        originalOrthographicSize = 7;
+        originalOrthographicSize = 10;
 
     }
     public void Dequip()
@@ -41,7 +41,9 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
         color.a = 0.4f;
         cam.m_Lens.OrthographicSize = originalOrthographicSize;
         model.color = color;
-        //DisableInASecond();
+#if UNITY_ANDROID
+        DisableInASecond();
+#endif
     }
 
     public void DisableInASecond()
@@ -52,7 +54,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
 
     void Disable()
     {
-        //GetComponent<Collider2D>().enabled = false;
+        
         gameObject.SetActive(false);
         Destroy(gameObject);
     }

@@ -14,11 +14,12 @@ public class HealthBehaviour : MonoBehaviour, ITakeDamage
     public float MaxHealth => maxHealth;
 
     protected bool isAlive = true;
+    public bool IsAlive { get => isAlive; set { isAlive = value; } }
 
     private void Awake()
     {
         Health = MaxHealth;
-        isAlive = true;
+        IsAlive = true;
     }
 
     public void DisableInASecond()
@@ -41,7 +42,7 @@ public class HealthBehaviour : MonoBehaviour, ITakeDamage
 
     public virtual void OnDeath()
     {
-        isAlive = false;
+        IsAlive = false;
         onDeathEvent.Invoke();
         //gameObject.SetActive(false);
         //Destroy(gameObject);
@@ -49,7 +50,7 @@ public class HealthBehaviour : MonoBehaviour, ITakeDamage
 
     public virtual void TakeDamage(float damage)
     {
-        if (!isAlive)
+        if (!IsAlive)
             return;
         Health -= damage;
         if (Health <= 0)

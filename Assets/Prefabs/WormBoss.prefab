@@ -4766,7 +4766,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4860,7 +4860,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5256,7 +5256,9 @@ GameObject:
   - component: {fileID: 8755363600283759102}
   - component: {fileID: 8755363600283759042}
   - component: {fileID: 8755363600283759043}
+  - component: {fileID: 5669728558282656117}
   - component: {fileID: 3773531200489166726}
+  - component: {fileID: 2644657368740160210}
   m_Layer: 8
   m_Name: WormBoss
   m_TagString: Untagged
@@ -5294,7 +5296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 1
+  maxHealth: 20
   playerHealth: {fileID: 8641299679286196900}
   onDeathEvent:
     m_PersistentCalls:
@@ -5483,6 +5485,23 @@ MonoBehaviour:
   target: {fileID: 0}
   damage: 1
   delay: 0.5
+--- !u!114 &5669728558282656117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8641299679113429041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb3211f208b65548bbac8a732710645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyDeath: {fileID: 11400000, guid: 4f0946caf66104a47937beffa4f2dd38, type: 2}
+  id: 5
+  priority: 1
+  delay: 0.2
+  healthBar: {fileID: 8641299678655328078}
 --- !u!95 &3773531200489166726
 Animator:
   serializedVersion: 3
@@ -5502,6 +5521,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2644657368740160210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8641299679113429041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6b5442eb8774a4980c653ba3c84840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startOnAwake: 0
+  speed: 1
+  xPercentage: 0
+  yPercentage: 0
+  easeType: 6
+  loopType: 0
 --- !u!1 &8641299679286196906
 GameObject:
   m_ObjectHideFlags: 0

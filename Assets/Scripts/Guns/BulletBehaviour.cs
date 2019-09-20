@@ -8,6 +8,7 @@ public class BulletBehaviour : MonoBehaviour, IElementalShootable
     [SerializeField] protected float speed=15;
     [SerializeField] protected float damage =1;
     [SerializeField] protected float lifeTime =3;
+    [SerializeField] protected float penetration=5;
     protected Elements element;
     protected Rigidbody2D rigid;
     protected SpriteRenderer model;
@@ -42,7 +43,7 @@ public class BulletBehaviour : MonoBehaviour, IElementalShootable
 
     void Disable()
     {
-        GetComponent<Collider2D>().enabled = true;
+        //GetComponent<Collider2D>().enabled = true;
         gameObject.SetActive(false);
         Destroy(gameObject);
     }
@@ -50,14 +51,25 @@ public class BulletBehaviour : MonoBehaviour, IElementalShootable
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var target = collision.GetComponent<ITakeElementalDamage>();
-        if(target!=null)
+        if (target != null && target.IsAlive)
         {
             target.TakeDamage(damage, Element);
-            return;
+            penetration--;
+            Debug.Log(penetration);
+            if(penetration <=0)
+                Disable();
         }
-        var simpleTarget = collision.GetComponent<ITakeDamage>();
-        if (simpleTarget != null)
-            simpleTarget.TakeDamage(damage);
+        else
+        {
+            var simpleTarget = collision.GetComponent<ITakeDamage>();
+            if (simpleTarget != null && simpleTarget.IsAlive)
+            {
+                simpleTarget.TakeDamage(damage);
+                penetration--;
+                if (penetration<= 0)
+                    Disable();
+            }
+        }
     }
 
     public void SwitchElement(Elements element)

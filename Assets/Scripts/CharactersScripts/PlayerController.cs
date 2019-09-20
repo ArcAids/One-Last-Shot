@@ -130,20 +130,24 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
         if (!canControl)
             return;
         SetMovementInputs();
+#if UNITY_ANDROID
+        Dash = DashUIButton;
+#elif UNITY_STANDALONE || UNITY_EDITOR
         Dash = Input.GetButtonDown("Fire2") || DashUIButton;
+#endif
+
         DashUIButton = false;
     }
 
     void UpdateMousePosition()
     {
-#if UNITY_STANDALONE || UNITY_EDITOR
-        if (cam != null)
-            mouseDirection = cam.ScreenToWorldPoint(Input.mousePosition)- transform.position;
-#endif
+
 #if UNITY_ANDROID
         mouseDirection = new Vector2(CrossPlatformInputManager.GetAxis("MouseX")==0?mouseDirection.x: CrossPlatformInputManager.GetAxis("MouseX"), CrossPlatformInputManager.GetAxis("MouseY")==0?mouseDirection.y: CrossPlatformInputManager.GetAxis("MouseY"));
+#elif UNITY_STANDALONE || UNITY_EDITOR
+        if (cam != null)
+            mouseDirection = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 #endif
-
         mouseDirection = mouseDirection.normalized;
     }
 

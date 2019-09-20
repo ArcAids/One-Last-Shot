@@ -67,7 +67,8 @@ public class CharacterMovement : MonoBehaviour
     public void DisableMovement()
     {
         canMove= false;
-        rigid.velocity = Vector3.zero;
+        if(rigid!=null)
+            rigid.velocity = Vector3.zero;
     }
     public void EnableMovement()
     {
