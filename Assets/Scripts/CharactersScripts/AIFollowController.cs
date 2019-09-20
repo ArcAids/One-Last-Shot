@@ -23,7 +23,7 @@ public class AIFollowController : MonoBehaviour, ICharacterInput
         if (target != null)
         {
             direction = target.position - transform.position;
-            MouseXDirection = target.position.x;
+            MouseXDirection = target.position.x - transform.position.x;
         }
         else
         {

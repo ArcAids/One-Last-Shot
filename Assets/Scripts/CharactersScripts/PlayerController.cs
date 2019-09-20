@@ -101,8 +101,13 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
         UpdateMousePosition();
         MouseXDirection = mouseDirection.x;
         MouseYDirection = mouseDirection.y;
-        //Shooting = Input.GetButton("Fire1");
+#if UNITY_STANDALONE || UNITY_EDITOR
+        Shooting = Input.GetButton("Fire1");
+#endif
+
+#if UNITY_ANDROID
         Shooting = CrossPlatformInputManager.GetButton("Fire");
+#endif
     }
 
     public void SetMovementInputs()
@@ -111,13 +116,14 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
             return;
         UpdateMousePosition();
         MouseXDirection = mouseDirection.x;
-        //HorizontalInput = Input.GetAxis("Horizontal");
-        //VerticalInput = Input.GetAxis("Vertical");
-//#if !UNITY_EDITOR 
-        
+#if UNITY_STANDALONE || UNITY_EDITOR
+        HorizontalInput = Input.GetAxis("Horizontal");
+        VerticalInput = Input.GetAxis("Vertical");
+#endif
+#if UNITY_ANDROID
         HorizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
         VerticalInput = CrossPlatformInputManager.GetAxis("Vertical");
-//#endif
+#endif
     }
     public void SetDashInputs()
     {
@@ -130,10 +136,15 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
 
     void UpdateMousePosition()
     {
-        //if (cam != null)
-        //    mousePosition = cam.ScreenToWorldPoint(Input.mousePosition)- transform.position;
+#if UNITY_STANDALONE || UNITY_EDITOR
+        if (cam != null)
+            mouseDirection = cam.ScreenToWorldPoint(Input.mousePosition)- transform.position;
+#endif
+#if UNITY_ANDROID
+        mouseDirection = new Vector2(CrossPlatformInputManager.GetAxis("MouseX")==0?mouseDirection.x: CrossPlatformInputManager.GetAxis("MouseX"), CrossPlatformInputManager.GetAxis("MouseY")==0?mouseDirection.y: CrossPlatformInputManager.GetAxis("MouseY"));
+#endif
 
-        mouseDirection = new Vector2(CrossPlatformInputManager.GetAxis("MouseX")==0?mouseDirection.x: CrossPlatformInputManager.GetAxis("MouseX"), CrossPlatformInputManager.GetAxis("MouseY")==0?mouseDirection.y: CrossPlatformInputManager.GetAxis("MouseY")).normalized;
+        mouseDirection = mouseDirection.normalized;
     }
 
     public void DisableControls()
