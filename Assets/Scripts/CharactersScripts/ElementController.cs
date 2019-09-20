@@ -9,15 +9,15 @@ public class ElementController : MonoBehaviour
     [SerializeField] ParticleSystem fire;
     [SerializeField] ParticleSystem ice;
     [SerializeField] ParticleSystem magic;
-
+    Elements currentElement;
     private void Awake()
     {
         input = GetComponent<IElementControlInput>();
     }
     private void Start()
     {
+        currentElement = Elements.Ice;
         ActivateElement(Elements.Fire);
-        
     }
     private void Update()
     {
@@ -38,6 +38,9 @@ public class ElementController : MonoBehaviour
 
     void ActivateElement(Elements element)
     {
+        if(currentElement == element)
+            return;
+        currentElement = element;
         eventController.Switch(element);
         switch (element)
         {

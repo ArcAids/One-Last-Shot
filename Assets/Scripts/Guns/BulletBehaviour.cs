@@ -11,15 +11,20 @@ public class BulletBehaviour : MonoBehaviour, IElementalShootable
     protected Elements element;
     protected Rigidbody2D rigid;
     protected SpriteRenderer model;
+    protected TrailRenderer tail;
 
     public Elements Element { get => element; private set { element = value;
             model.color = ElementalUtility.GetColor(value);
+            Gradient colorGradient = new Gradient();
+            colorGradient.colorKeys= new GradientColorKey[] { new GradientColorKey(ElementalUtility.GetColor(value),0), new GradientColorKey(Color.white, 1) };
+            tail.colorGradient = colorGradient;
         } }
 
     protected void Awake()
     {
         rigid=GetComponent<Rigidbody2D>();
         model=GetComponent<SpriteRenderer>();
+        tail = GetComponent<TrailRenderer>();
     }
 
 
@@ -48,7 +53,11 @@ public class BulletBehaviour : MonoBehaviour, IElementalShootable
         if(target!=null)
         {
             target.TakeDamage(damage, Element);
+            return;
         }
+        var simpleTarget = collision.GetComponent<ITakeDamage>();
+        if (simpleTarget != null)
+            simpleTarget.TakeDamage(damage);
     }
 
     public void SwitchElement(Elements element)

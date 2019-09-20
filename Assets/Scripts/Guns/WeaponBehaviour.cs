@@ -41,7 +41,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
         color.a = 0.4f;
         cam.m_Lens.OrthographicSize = originalOrthographicSize;
         model.color = color;
-        DisableInASecond();
+        //DisableInASecond();
     }
 
     public void DisableInASecond()
@@ -52,7 +52,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
 
     void Disable()
     {
-        GetComponent<Collider2D>().enabled = true;
+        //GetComponent<Collider2D>().enabled = false;
         gameObject.SetActive(false);
         Destroy(gameObject);
     }

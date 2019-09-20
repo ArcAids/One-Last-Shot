@@ -11,7 +11,6 @@
 
 public interface ITakeElementalDamage : ITakeDamage ,IElemental
 {
-    Elements DamageType { get; }
     void TakeDamage(float damage, Elements element);
 }
 

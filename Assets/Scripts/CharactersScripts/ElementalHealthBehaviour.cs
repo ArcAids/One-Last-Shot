@@ -4,20 +4,20 @@ public class ElementalHealthBehaviour : HealthBehaviour, ITakeElementalDamage
 {
     SpriteRenderer body;
     [SerializeField] Elements notImmuneTo;
-    public Elements DamageType { get => notImmuneTo; private set { notImmuneTo = value;
+    public Elements Element { get => notImmuneTo; private set { notImmuneTo = value;
             //body.color=ElementalUtility.GetColor(value);
         } }
 
     private void Awake()
     {
         body = GetComponentInChildren<SpriteRenderer>();
-        DamageType = notImmuneTo;
+        Element = notImmuneTo;
         Health = MaxHealth;
     }
 
     public void TakeDamage(float damage, Elements element)
     {
-        if (element == DamageType)
+        if (element == Element)
         {
             TakeDamage(damage);
         }
@@ -25,6 +25,6 @@ public class ElementalHealthBehaviour : HealthBehaviour, ITakeElementalDamage
 
     public void SwitchElement(Elements element)
     {
-        DamageType = element;
+        Element = element;
     }
 }

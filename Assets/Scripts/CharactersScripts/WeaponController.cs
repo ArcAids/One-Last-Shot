@@ -19,7 +19,13 @@ public class WeaponController : MonoBehaviour, IElemental
 
     Vector3 aimDirection;
     float aimAngle;
-
+    public Elements Element
+    {
+        get => currentElement; private set
+        {
+            currentElement = value;
+        }
+    }
 
     private void Start()
     {
@@ -50,7 +56,7 @@ public class WeaponController : MonoBehaviour, IElemental
     {
         this.weapon = weapon;
         weapon.Equip();
-        weapon.SwitchElement(currentElement);
+        weapon.SwitchElement(Element);
         pointer.Deactivate();
         gunHolder.localScale = new Vector2(1, 1);
         weapon.gunTransform.parent = gunHolder;
@@ -62,8 +68,8 @@ public class WeaponController : MonoBehaviour, IElemental
 
     void Aim()
     {
-        aimDirection.x= input.MouseXPosition - transform.position.x;
-        aimDirection.y= input.MouseYPosition - transform.position.y;
+        aimDirection.x= input.MouseXDirection;
+        aimDirection.y= input.MouseYDirection;
         aimAngle = Vector2.SignedAngle(Vector2.right,aimDirection);
         if (aimDirection.x <0)
             gunHolder.localScale = new Vector2(1,-1);
@@ -98,7 +104,7 @@ public class WeaponController : MonoBehaviour, IElemental
 
     public void SwitchElement(Elements element)
     {
-        currentElement = element;
+        Element = element;
         weapon?.SwitchElement(element);
     }
 

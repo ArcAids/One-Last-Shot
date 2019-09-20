@@ -9,5 +9,5 @@ public interface IShootable
 
 public interface IElementalShootable: IShootable, IElemental
 {
-    Elements Element { get;  }
+   
 }

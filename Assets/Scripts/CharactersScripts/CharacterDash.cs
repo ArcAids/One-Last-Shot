@@ -21,7 +21,7 @@ public class CharacterDash : MonoBehaviour
     CharacterMovement movement;
     Vector3 movementDirection;
 
-    bool canDash=true;
+    bool canDash=false;
     float dashTime;
     float dashRecharge;
 
@@ -29,6 +29,7 @@ public class CharacterDash : MonoBehaviour
 
     public bool Dashing { get => dashing; set
         {
+            dashing = value;
             dashing = value;
             if (dashing)
                 OnDashStart();
@@ -52,14 +53,15 @@ public class CharacterDash : MonoBehaviour
         
         collider = GetComponentInChildren<Collider2D>();
         if (trail==null)
-            trail=GetComponent<TrailRenderer>();
+            trail=GetComponentInChildren<TrailRenderer>();
         movementDirection.z = 0;
+        DashRecharge = dashCoolDown;
         dashing = false;
     }
 
     private void Update()
     {
-        input.SetMovementInputs();
+        input.SetDashInputs();
         if (input.Dash && canDash )
             Dash();
 
@@ -80,6 +82,7 @@ public class CharacterDash : MonoBehaviour
             if (DashRecharge<=0)
             {
                 canDash = true;
+                rechargeCircle.color = Color.white;
             }
         }
 
@@ -107,10 +110,11 @@ public class CharacterDash : MonoBehaviour
 
     void OnDashStart()
     {
-        movement?.DisableMovement();
-        rigidBody.velocity = movementDirection.normalized * dashSpeed;
         trail.Clear();
         trail.enabled = true;
+        movement?.DisableMovement();
+        rechargeCircle.color = Color.grey;
+        rigidBody.velocity = movementDirection.normalized * dashSpeed;
         if(invulnerableWhileDashing)
             collider.enabled = false;
     }

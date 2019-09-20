@@ -5151,6 +5151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  eatsCorpse: 0
 --- !u!114 &1039588829522234001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5163,6 +5164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cb13237e80507c4aa4174cf349453f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
   maxHealth: 1
   playerHealth: {fileID: 1039588829502058552}
   onDeathEvent:
@@ -5261,7 +5263,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2
-  AIControlled: 1
 --- !u!114 &1630518111
 MonoBehaviour:
   m_ObjectHideFlags: 0

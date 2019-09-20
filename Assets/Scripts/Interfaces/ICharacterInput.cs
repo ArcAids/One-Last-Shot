@@ -2,6 +2,6 @@
 {
     float HorizontalInput { get;  }
     float VerticalInput { get; }
-    float MouseXPosition { get; }
+    float MouseXDirection { get; }
     void SetMovementInputs();
 }

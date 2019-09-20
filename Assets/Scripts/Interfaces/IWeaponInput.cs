@@ -1,6 +1,6 @@
 ﻿public interface IWeaponInput {
-    float MouseXPosition { get; }
-    float MouseYPosition { get; }
+    float MouseXDirection { get; }
+    float MouseYDirection { get; }
     bool Shooting { get; }
 
     void SetWeaponInputs();

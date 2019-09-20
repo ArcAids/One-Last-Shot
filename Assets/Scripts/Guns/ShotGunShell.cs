@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShotGunShell :MonoBehaviour, IElementalShootable
 {
     [SerializeField]
-    List<Sharpnel> sharpnels;
+    List<BulletBehaviour> sharpnels;
     Elements element;
     public Elements Element
     {

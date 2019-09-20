@@ -16,11 +16,15 @@ public class EnemyDeathEvent : ScriptableObject
 
     public void DeregisterElmentSwitch(IEnemyDeathListener elemental)
     {
+        if (listeners == null)
+            return;
         listeners.Remove(elemental);
     }
 
     public void OnDeath()
     {
+        if (listeners == null)
+            return;
         foreach (var listener in listeners)
         {
             listener.OnDeath();
@@ -29,6 +33,8 @@ public class EnemyDeathEvent : ScriptableObject
 
     public void OnBossDeath()
     {
+        if (listeners == null)
+            return;
         foreach (var listener in listeners)
         {
             listener.OnBossDeath();

@@ -45,7 +45,7 @@ public class CharacterMovement : MonoBehaviour
 
     void Flip()
     {
-        if (input.MouseXPosition > transform.position.x)
+        if (input.MouseXDirection >= 0)
             bodySprite.flipX = false;
         else
             bodySprite.flipX = true;
@@ -57,6 +57,11 @@ public class CharacterMovement : MonoBehaviour
         movementDirection.x = input.HorizontalInput;
         movementDirection.y = input.VerticalInput;
         movementDirection=movementDirection.normalized;
+    }
+
+    public void AddSpeed(float value)
+    {
+        movementSpeed +=value;
     }
 
     public void DisableMovement()

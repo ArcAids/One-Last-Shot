@@ -9,7 +9,7 @@ public class AIFollowController : MonoBehaviour, ICharacterInput
     public float HorizontalInput { get; private set; }
     public float VerticalInput { get; private set; }
 
-    public float MouseXPosition { get; private set; }
+    public float MouseXDirection { get; private set; }
 
 
     Vector2 defaultDirection;
@@ -23,7 +23,7 @@ public class AIFollowController : MonoBehaviour, ICharacterInput
         if (target != null)
         {
             direction = target.position - transform.position;
-            MouseXPosition = target.position.x;
+            MouseXDirection = target.position.x;
         }
         else
         {

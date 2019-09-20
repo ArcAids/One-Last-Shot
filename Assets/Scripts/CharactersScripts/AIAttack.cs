@@ -21,6 +21,7 @@ public class AIAttack : MonoBehaviour
         if(victim!=null)
         {
             close = true;
+            StopAllCoroutines();
             StartCoroutine(AttemptHit(victim));
         }
     }
@@ -32,9 +33,13 @@ public class AIAttack : MonoBehaviour
 
     IEnumerator AttemptHit(ITakeDamage victim)
     {
-        yield return new WaitForSeconds(delay);
-        if(close && canAttack)
-            victim.TakeDamage(damage);
+        while(close)
+        {
+            yield return new WaitForSeconds(delay);
+            if(close && canAttack)
+                victim.TakeDamage(damage);
+        }
+        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

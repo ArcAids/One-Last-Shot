@@ -7,9 +7,16 @@ using UnityEngine.UI;
 public class ElementSelected : MonoBehaviour, IElemental
 {
     [SerializeField] ElementalEventController elementEvent;
-    [SerializeField] Image fireImage;
-    [SerializeField] Image slashImage;
-    [SerializeField] Image iceImage;
+    [SerializeField] Animator animator;
+    [SerializeField] float speed;
+
+    float target;
+    float currentValue;
+    public Elements Element
+    {
+        get; set;
+    }
+
 
     private void OnEnable()
     {
@@ -23,18 +30,12 @@ public class ElementSelected : MonoBehaviour, IElemental
 
     public void SwitchElement(Elements element)
     {
-        switch (element)
-        {
-            case Elements.Fire:
-                fireImage.enabled = true;
-                break;
-            case Elements.Ice:
-                fireImage.enabled = true;
-                break;
-            case Elements.Slash:
-                break;
-            default:
-                break;
-        }
+        target = (int)element + 1;
+    }
+
+    private void FixedUpdate()
+    {
+        currentValue = Mathf.Lerp(currentValue,target,Time.fixedDeltaTime *speed);
+        animator.SetFloat("Blend", currentValue);
     }
 }

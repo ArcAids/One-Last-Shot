@@ -8,7 +8,7 @@ public class Sharpnel : MonoBehaviour, IElementalShootable
     [SerializeField] float speed = 15;
     [SerializeField] float lifeTime = 0.3f;
     [SerializeField] float damage = 1;
-    [SerializeField] Elements element;
+    Elements element;
     Rigidbody2D rigid;
     SpriteRenderer model;
 

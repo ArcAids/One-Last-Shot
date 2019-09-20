@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, IDashInput, IElementControlInput
 {
@@ -10,13 +11,19 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
     public bool ActivateSlashElement { get; private set; }
     public float HorizontalInput { get; private set; }
     public float VerticalInput { get; private set; }
-    public float MouseXPosition { get; private set; }
-    public float MouseYPosition { get; private set; }
+    public float MouseXDirection { get; private set; }
+    public float MouseYDirection { get; private set; }
     public bool Shooting { get; private set; }
     public bool Dash { get; private set; }
 
     bool canControl=true;
-    Vector3 mousePosition;
+
+    public bool DashUIButton { get; set; }
+    public bool FireUIButton { get; set; }
+    public bool IceUIButton  { get; set; }
+    public bool MagicUIButton { get; set; }
+    Vector3 mouseDirection;
+    Elements currentElement=Elements.Fire;
     private void Start()
     {
         if (cam == null)
@@ -33,20 +40,69 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
         if (!canControl)
             return;
 
+        ActivateFireElement = false;
+        ActivateIceElement = false;
+        ActivateSlashElement = false;
 
-        ActivateFireElement = Input.GetKey(KeyCode.Alpha1);
-        ActivateIceElement = Input.GetKey(KeyCode.Alpha2);
-        ActivateSlashElement = Input.GetKey(KeyCode.Alpha3);
+        if (Input.GetKeyDown(KeyCode.Alpha1) || FireUIButton)
+            currentElement = Elements.Fire;
+        else if (Input.GetKeyDown(KeyCode.Alpha2) || IceUIButton)
+            currentElement = Elements.Ice;
+        else if (Input.GetKeyDown(KeyCode.Alpha3) || MagicUIButton)
+            currentElement = Elements.Slash;
+        else if (Input.mouseScrollDelta.y<0)
+            SelectNextElement();
+        else if (Input.mouseScrollDelta.y > 0)
+            SelectPreviousElement();
+
+        switch (currentElement)
+        {
+            case Elements.Fire:
+                ActivateFireElement = true;
+                break;
+            case Elements.Ice:
+                ActivateIceElement = true;
+                break;
+            case Elements.Slash:
+                ActivateSlashElement = true;
+                break;
+            default:
+                break;
+        }
+
+        FireUIButton = false;
+        IceUIButton = false;
+        MagicUIButton = false;
     }
+
+    void SelectNextElement()
+    {
+        Debug.Log("Up"+Input.mouseScrollDelta.y);
+        if ((int)currentElement == 2)
+            currentElement = 0;
+        else
+            currentElement++;
+    }
+     void SelectPreviousElement()
+    {
+        Debug.Log("down"+Input.mouseScrollDelta.y);
+        if ((int)currentElement == 0)
+            currentElement = (Elements)2;
+        else
+            currentElement--;
+    }
+
+
      public void SetWeaponInputs()
     {
         if (!canControl)
             return;
 
         UpdateMousePosition();
-        MouseXPosition = mousePosition.x;
-        MouseYPosition = mousePosition.y;
-        Shooting = Input.GetButton("Fire1");
+        MouseXDirection = mouseDirection.x;
+        MouseYDirection = mouseDirection.y;
+        //Shooting = Input.GetButton("Fire1");
+        Shooting = CrossPlatformInputManager.GetButton("Fire");
     }
 
     public void SetMovementInputs()
@@ -54,16 +110,30 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
         if (!canControl)
             return;
         UpdateMousePosition();
-        Dash = Input.GetButton("Fire2");
-        MouseXPosition = mousePosition.x;
-        HorizontalInput = Input.GetAxis("Horizontal");
-        VerticalInput = Input.GetAxis("Vertical");
+        MouseXDirection = mouseDirection.x;
+        //HorizontalInput = Input.GetAxis("Horizontal");
+        //VerticalInput = Input.GetAxis("Vertical");
+//#if !UNITY_EDITOR 
+        
+        HorizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
+        VerticalInput = CrossPlatformInputManager.GetAxis("Vertical");
+//#endif
+    }
+    public void SetDashInputs()
+    {
+        if (!canControl)
+            return;
+        SetMovementInputs();
+        Dash = Input.GetButtonDown("Fire2") || DashUIButton;
+        DashUIButton = false;
     }
 
     void UpdateMousePosition()
     {
-        if (cam != null)
-            mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        //if (cam != null)
+        //    mousePosition = cam.ScreenToWorldPoint(Input.mousePosition)- transform.position;
+
+        mouseDirection = new Vector2(CrossPlatformInputManager.GetAxis("MouseX")==0?mouseDirection.x: CrossPlatformInputManager.GetAxis("MouseX"), CrossPlatformInputManager.GetAxis("MouseY")==0?mouseDirection.y: CrossPlatformInputManager.GetAxis("MouseY")).normalized;
     }
 
     public void DisableControls()
@@ -71,8 +141,8 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
         canControl = false;
         HorizontalInput = 0;
         VerticalInput = 0;
-        MouseXPosition = 0;
-        MouseYPosition= 0;
+        MouseXDirection = 0;
+        MouseYDirection= 0;
         Dash = false;
         ActivateFireElement = false;
         ActivateIceElement =   false;

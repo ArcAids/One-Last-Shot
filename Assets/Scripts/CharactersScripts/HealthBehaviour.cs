@@ -4,16 +4,16 @@ using UnityEngine.UI;
 
 public class HealthBehaviour : MonoBehaviour, ITakeDamage
 {
-    float health;
+    [SerializeField] float health;
     [SerializeField] protected float maxHealth;
     [Space]
     [SerializeField] Image playerHealth;
     [SerializeField] UnityEvent onDeathEvent;
-    public float Health { get => health; protected set { health = value; if(playerHealth!=null) playerHealth.fillAmount = (value / MaxHealth); } }
+    public float Health { get => health; protected set { health = value < 0 ? 0 : value; if (playerHealth != null) playerHealth.fillAmount = (value / MaxHealth); } }
 
     public float MaxHealth => maxHealth;
 
-    protected bool isAlive=true;
+    protected bool isAlive = true;
 
     private void Awake()
     {
@@ -21,15 +21,15 @@ public class HealthBehaviour : MonoBehaviour, ITakeDamage
         isAlive = true;
     }
 
-    private void Start()
-    {
-        
-    }
-
     public void DisableInASecond()
     {
         Invoke("Disable", 3);
 
+    }
+
+    public void Heal(float value)
+    {
+        Health = Mathf.Min(MaxHealth, value + Health);
     }
 
     void Disable()
@@ -51,7 +51,6 @@ public class HealthBehaviour : MonoBehaviour, ITakeDamage
     {
         if (!isAlive)
             return;
-
         Health -= damage;
         if (Health <= 0)
         {
@@ -59,4 +58,5 @@ public class HealthBehaviour : MonoBehaviour, ITakeDamage
             OnDeath();
         }
     }
+
 }
