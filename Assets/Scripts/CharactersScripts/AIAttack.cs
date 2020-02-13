@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AIAttack : MonoBehaviour
 {
-    IWeaponInput input;
     [SerializeField] Transform target;
     [SerializeField] float damage;
     [SerializeField] float delay;
@@ -13,9 +12,10 @@ public class AIAttack : MonoBehaviour
 
     ITakeDamage victim;
     bool close;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player"))
+        if (!collision.CompareTag("Player") || !canAttack)
             return;
         victim = collision.GetComponent<ITakeDamage>();
         if(victim!=null)

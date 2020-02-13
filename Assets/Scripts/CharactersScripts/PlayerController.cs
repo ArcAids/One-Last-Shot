@@ -75,17 +75,17 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
         MagicUIButton = false;
     }
 
-    void SelectNextElement()
+    public void SelectNextElement()
     {
-        Debug.Log("Up"+Input.mouseScrollDelta.y);
+        //Debug.Log("Up"+Input.mouseScrollDelta.y);
         if ((int)currentElement == 2)
             currentElement = 0;
         else
             currentElement++;
     }
-     void SelectPreviousElement()
+    public void SelectPreviousElement()
     {
-        Debug.Log("down"+Input.mouseScrollDelta.y);
+        //Debug.Log("down"+Input.mouseScrollDelta.y);
         if ((int)currentElement == 0)
             currentElement = (Elements)2;
         else
@@ -101,13 +101,13 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
         UpdateMousePosition();
         MouseXDirection = mouseDirection.x;
         MouseYDirection = mouseDirection.y;
+#if UNITY_ANDROID
+        Shooting = CrossPlatformInputManager.GetButton("Fire");
+#endif
 #if UNITY_STANDALONE || UNITY_EDITOR
         Shooting = Input.GetButton("Fire1");
 #endif
 
-#if UNITY_ANDROID
-        Shooting = CrossPlatformInputManager.GetButton("Fire");
-#endif
     }
 
     public void SetMovementInputs()
@@ -116,13 +116,13 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
             return;
         UpdateMousePosition();
         MouseXDirection = mouseDirection.x;
-#if UNITY_STANDALONE || UNITY_EDITOR
-        HorizontalInput = Input.GetAxis("Horizontal");
-        VerticalInput = Input.GetAxis("Vertical");
-#endif
 #if UNITY_ANDROID
         HorizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
         VerticalInput = CrossPlatformInputManager.GetAxis("Vertical");
+#endif
+#if UNITY_STANDALONE || UNITY_EDITOR
+        HorizontalInput = Input.GetAxis("Horizontal");
+        VerticalInput = Input.GetAxis("Vertical");
 #endif
     }
     public void SetDashInputs()
@@ -132,7 +132,8 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
         SetMovementInputs();
 #if UNITY_ANDROID
         Dash = DashUIButton;
-#elif UNITY_STANDALONE || UNITY_EDITOR
+#endif
+#if UNITY_STANDALONE || UNITY_EDITOR
         Dash = Input.GetButtonDown("Fire2") || DashUIButton;
 #endif
 
@@ -144,7 +145,8 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
 
 #if UNITY_ANDROID
         mouseDirection = new Vector2(CrossPlatformInputManager.GetAxis("MouseX")==0?mouseDirection.x: CrossPlatformInputManager.GetAxis("MouseX"), CrossPlatformInputManager.GetAxis("MouseY")==0?mouseDirection.y: CrossPlatformInputManager.GetAxis("MouseY"));
-#elif UNITY_STANDALONE || UNITY_EDITOR
+#endif
+#if UNITY_STANDALONE || UNITY_EDITOR
         if (cam != null)
             mouseDirection = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 #endif

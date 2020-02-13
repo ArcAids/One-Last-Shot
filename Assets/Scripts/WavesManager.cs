@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WavesManager : MonoBehaviour, IEnemyDeathListener
 {
@@ -10,7 +11,7 @@ public class WavesManager : MonoBehaviour, IEnemyDeathListener
         public List<AIFollowController> enemies;
         public AIFollowController boss;
         public float delayBetweenSpawns;
-        public int totalEnemies;
+        public UnityEvent onWaveStart;
     }
 
     [SerializeField] List<Wave> wavesData;
@@ -47,7 +48,7 @@ public class WavesManager : MonoBehaviour, IEnemyDeathListener
         currentWave++;
         if(currentWave>=wavesData.Count)
         {
-            GetComponent<GameManager>().YouWin();
+            GetComponent<GameManager>()?.YouWin();
         }
         else
             StartCoroutine(WaveSpawner(wavesData[currentWave]));
@@ -55,8 +56,8 @@ public class WavesManager : MonoBehaviour, IEnemyDeathListener
 
     IEnumerator WaveSpawner(Wave wave)
     {
-        wave.totalEnemies = wave.enemies.Count + (wave.boss==null?0:1);
-        enemiesAlive = wave.totalEnemies;
+        wave.onWaveStart.Invoke();
+        enemiesAlive = wave.enemies.Count + (wave.boss==null?0:1);
         waver.gameObject.SetActive(true);
         waver.text = "Wave "+(currentWave+1);
         yield return new WaitForSeconds(delayBeforeWaves);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
@@ -7,6 +8,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
     [SerializeField] Transform muzzle;
     [SerializeField] Elements element;
     [SerializeField] int magazine=1;
+    [SerializeField] float fireRate=1;
     [SerializeField] SpriteRenderer model;
     [SerializeField] SpriteRenderer hands;
     [SerializeField] Cinemachine.CinemachineVirtualCamera cam;
@@ -16,12 +18,19 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
 
     float originalOrthographicSize;
     public Transform gunTransform { get => transform; }
+    public bool IsEmpty { get =>magazine<=0; }
     public Elements Element { get => element; set
         {
             element = value;
             model.color = ElementalUtility.GetColor(value);
         }
     }
+
+    float lastShotTimer;
+    float LastShotTimer { get { return lastShotTimer; } set { lastShotTimer = value; if (value <= 0) canShoot = true; } }
+
+    float shotTimeDelay;
+    bool canShoot;
 
     private void Awake()
     {
@@ -30,8 +39,9 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
         if(cam==null)
             cam = FindObjectOfType<Cinemachine.CinemachineVirtualCamera>();
         originalOrthographicSize = 10;
-
+        shotTimeDelay = 1/fireRate;
     }
+
     public void Dequip()
     {
         transform.parent = null;
@@ -69,11 +79,10 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
         cam.m_Lens.OrthographicSize = zoom;
     }
 
-    public void Shoot()
+    public bool Shoot()
     {
-        if (magazine > 0)
+        if (magazine > 0 && canShoot)
         {
-
             IElementalShootable bullet=Instantiate(bulletPrefab, muzzle.position, muzzle.rotation, null).GetComponent<IElementalShootable>();
             bullet.SwitchElement(Element);
             if(audio!=null)
@@ -81,7 +90,17 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
             onShot.Invoke();
             bullet.Shoot();
             magazine--;
+            canShoot = false;
+            LastShotTimer = shotTimeDelay;
+            return true;
         }
+        return false;
+    }
+
+    private void Update()
+    {
+        if(!canShoot)
+            LastShotTimer -= Time.deltaTime;
     }
 
     public void SwitchElement(Elements element)

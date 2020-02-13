@@ -3,7 +3,9 @@
 public interface IWeapon {
 
     Transform gunTransform { get; }
-    void Shoot();
+
+    bool IsEmpty { get; }
+    bool Shoot();
     void Equip();
     void Dequip();
 }

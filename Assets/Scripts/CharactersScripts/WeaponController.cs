@@ -1,10 +1,8 @@
-﻿using Cinemachine;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public class WeaponController : MonoBehaviour, IElemental
 { 
-    [SerializeField] float turnSpeed;
     [SerializeField] Transform gunPivot;
     [SerializeField] Transform gunHolder;
     [SerializeField] IElementalWeapon weapon;
@@ -15,7 +13,7 @@ public class WeaponController : MonoBehaviour, IElemental
 
     Elements currentElement;
     IWeaponInput input;
-    CinemachineImpulseSource shaker;
+    SpriteRenderer sprite;
 
     Vector3 aimDirection;
     float aimAngle;
@@ -30,8 +28,7 @@ public class WeaponController : MonoBehaviour, IElemental
     private void Start()
     {
         input = GetComponent<IWeaponInput>();
-        shaker = GetComponent<CinemachineImpulseSource>();
-
+        
     }
 
     private void OnEnable()
@@ -62,7 +59,7 @@ public class WeaponController : MonoBehaviour, IElemental
         weapon.gunTransform.parent = gunHolder;
         weapon.gunTransform.localPosition = Vector2.zero;
         weapon.gunTransform.localRotation= Quaternion.identity;
-
+        sprite = weapon.gunTransform.GetComponent<SpriteRenderer>();
     }
 
 
@@ -71,6 +68,14 @@ public class WeaponController : MonoBehaviour, IElemental
         aimDirection.x= input.MouseXDirection;
         aimDirection.y= input.MouseYDirection;
         aimAngle = Vector2.SignedAngle(Vector2.right,aimDirection);
+        if (sprite != null)
+        {
+            if (aimDirection.x < 0)
+                sprite.flipY = true;
+            else
+                sprite.flipY = false;
+        }
+        else
         if (aimDirection.x <0)
             gunHolder.localScale = new Vector2(1,-1);
         else
@@ -83,11 +88,14 @@ public class WeaponController : MonoBehaviour, IElemental
         if (weapon == null)
             return;
 
-        weapon.Shoot();
-        weapon.Dequip();
-        weapon = null;
-        shaker.GenerateImpulse();
-        weaponEvent.OnWeaponShot();
+        if(weapon.Shoot())
+            weaponEvent.OnWeaponShot();
+        if (weapon.IsEmpty)
+        {
+            weapon.Dequip();
+            weapon = null;
+        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -97,7 +105,6 @@ public class WeaponController : MonoBehaviour, IElemental
         IElementalWeapon weapon=collision.GetComponent<IElementalWeapon>();
         if (weapon!=null)
         {
-
             Equip(weapon);
         }
     }

@@ -5,13 +5,17 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] float movementSpeed;
+    [SerializeField] float baseMovementDampening=0.2f;
     Animator animator;
     SpriteRenderer bodySprite;
     ICharacterInput input;
     Rigidbody2D rigid;
     Vector3 movementDirection;
+    Vector3 targetVelocity;
     bool canMove=true;
+    bool isDashing=false;
 
+    float movementDampening;
     readonly int walkBoolHash = Animator.StringToHash("Walking");
 
     private void Start()
@@ -21,12 +25,23 @@ public class CharacterMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         rigid= GetComponent<Rigidbody2D>();
         movementDirection.z = 0;
+        movementDampening = baseMovementDampening;
     }
 
-    private void LateUpdate()
+    
+
+    private void FixedUpdate()
     {
         if(canMove)
-            rigid.velocity = movementDirection * movementSpeed;
+            targetVelocity = movementDirection * movementSpeed;
+        if(movementDirection==Vector3.zero)
+        {
+            targetVelocity.x =  rigid.velocity.x * Mathf.Pow(movementDampening, Time.deltaTime *10f);
+            targetVelocity.y =  rigid.velocity.y * Mathf.Pow(movementDampening, Time.deltaTime *10f);
+        }
+
+        rigid.velocity = targetVelocity;
+
     }
 
     private void Update()
@@ -37,10 +52,8 @@ public class CharacterMovement : MonoBehaviour
             movementDirection = Vector3.zero;
 
         Flip();
-        if (movementDirection.x!= 0 || movementDirection.y != 0)
-            animator.SetBool(walkBoolHash, true);
-        else
-            animator.SetBool(walkBoolHash, false);
+        if(animator)
+            SetAnimations();
     }
 
     void Flip()
@@ -50,7 +63,13 @@ public class CharacterMovement : MonoBehaviour
         else
             bodySprite.flipX = true;
     }
-
+    void SetAnimations()
+    {
+        if (movementDirection.x != 0 || movementDirection.y != 0)
+            animator?.SetBool(walkBoolHash, true);
+        else
+            animator?.SetBool(walkBoolHash, false);
+    }
     void TakeMoveInput()
     {
         input.SetMovementInputs();
@@ -67,11 +86,18 @@ public class CharacterMovement : MonoBehaviour
     public void DisableMovement()
     {
         canMove= false;
-        if(rigid!=null)
-            rigid.velocity = Vector3.zero;
+        targetVelocity = Vector3.zero;
+    }
+    public void DisableMovement(Vector2 targetVelocity)
+    {
+        DisableMovement();
+        movementDampening = 1;
+        this.targetVelocity = targetVelocity;
+        rigid.velocity = targetVelocity;
     }
     public void EnableMovement()
     {
         canMove= true;
+        movementDampening = baseMovementDampening;
     }
 }

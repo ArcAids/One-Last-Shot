@@ -6,6 +6,7 @@ public class HealthBehaviour : MonoBehaviour, ITakeDamage
 {
     [SerializeField] float health;
     [SerializeField] protected float maxHealth;
+
     [Space]
     [SerializeField] Image playerHealth;
     [SerializeField] UnityEvent onDeathEvent;
