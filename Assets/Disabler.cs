@@ -17,14 +17,15 @@ public class Disabler : MonoBehaviour
 
     public void DisableWithDelay()
     {
-        Invoke("Disable", disableAfter);
+        StartCoroutine(Disable());
 
     }
 
-    void Disable()
+    IEnumerator Disable()
     {
+        yield return new WaitForSeconds(disableAfter);
         gameObject.SetActive(false);
         if(alsoDestroy)
-        Destroy(gameObject);
+            Destroy(gameObject);
     }
 }

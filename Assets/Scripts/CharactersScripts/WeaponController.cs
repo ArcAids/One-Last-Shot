@@ -8,6 +8,7 @@ public class WeaponController : MonoBehaviour, IElemental
     [SerializeField] IElementalWeapon weapon;
     [SerializeField] ElementalEventController elementController;
     [SerializeField] WeaponsEventController weaponEvent;
+    [SerializeField] WeaponHUDManager hudManager;
     [SerializeField] GunPointer pointer;
     
 
@@ -60,6 +61,7 @@ public class WeaponController : MonoBehaviour, IElemental
         weapon.gunTransform.localPosition = Vector2.zero;
         weapon.gunTransform.localRotation= Quaternion.identity;
         sprite = weapon.gunTransform.GetComponent<SpriteRenderer>();
+        hudManager.SetWeaponData(weapon.gunTransform.name,weapon.AmmoLeft,weapon.AmmoLeft,sprite.sprite);
     }
 
 
@@ -70,16 +72,14 @@ public class WeaponController : MonoBehaviour, IElemental
         aimAngle = Vector2.SignedAngle(Vector2.right,aimDirection);
         if (sprite != null)
         {
-            if (aimDirection.x < 0)
-                sprite.flipY = true;
-            else
-                sprite.flipY = false;
+            weapon?.FlipSpriteY(aimDirection.x < 0);
         }
         else
         if (aimDirection.x <0)
             gunHolder.localScale = new Vector2(1,-1);
         else
             gunHolder.localScale = new Vector2(1,1);
+
         gunPivot.rotation =Quaternion.Euler(0,0,aimAngle);
     }
 
@@ -88,12 +88,16 @@ public class WeaponController : MonoBehaviour, IElemental
         if (weapon == null)
             return;
 
-        if(weapon.Shoot())
+        if (weapon.Shoot())
+        {
             weaponEvent.OnWeaponShot();
-        if (weapon.IsEmpty)
+            hudManager.UpdateAmmoCount(weapon.AmmoLeft);
+        }
+        if (weapon.AmmoLeft<=0)
         {
             weapon.Dequip();
             weapon = null;
+            hudManager.SetDefaultState();
         }
         
     }

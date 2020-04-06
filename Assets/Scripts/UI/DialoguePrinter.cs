@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class DialoguePrinter : MonoBehaviour
 {
     [SerializeField] DialogueSequence test;
-    List<Dialogue> conversation;
+    [SerializeField] UnityEvent onDialogueStart;
+    List<Dialogue> conversation= new List<Dialogue>();
     public TMP_Text dialogueBox;
     public TMP_Text characterName;
     public bool autoNext;
     public float speed;
-    int currentIndex;
-    int dialogueNumber = 0;
-    bool isDoneIterating = false;
+    int currentLine=-1;
+    int dialogueNumber = -1;
+    bool isDoneIterating = true;
+    bool havingConversation=false;
+    bool isInterruptable=true;
 
     public static DialoguePrinter Instance;
-
+    Coroutine writer;
     private void Awake()
     {
         if (Instance == null)
@@ -30,19 +34,34 @@ public class DialoguePrinter : MonoBehaviour
     // Use this for initialization
     public void StartDialogue(DialogueSequence dialogues)
     {
-        gameObject.SetActive(true);
-        conversation = dialogues.dialogues;
-        autoNext = dialogues.autoScroll;
-        Reset();
-        characterName.text = conversation[dialogueNumber].characterName;
-        Next();
+        if(havingConversation && !isInterruptable)
+        {
+            if (dialogues.mustSpeak)
+            {
+                conversation.AddRange(dialogues.dialogues);
+            }
+            else return;
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            onDialogueStart.Invoke();
+            Reset();
+            conversation.AddRange(dialogues.dialogues);
+            isInterruptable = dialogues.interruptable;
+            autoNext = dialogues.autoScroll;
+            havingConversation = true;
+            Next();
+        }
     }
     void Reset()
     {
         StopAllCoroutines();
         isDoneIterating = true;
-        currentIndex = -1;
-        dialogueNumber = 0;
+        havingConversation = false;
+        conversation.Clear();
+        currentLine = -1;
+        dialogueNumber = -1;
     }
 
     [ContextMenu("test")]
@@ -63,7 +82,7 @@ public class DialoguePrinter : MonoBehaviour
         if (autoNext)
         {
             yield return new WaitForSeconds(1);
-            if(isDoneIterating)
+            if(isDoneIterating && havingConversation)
                 Next();
         }
 
@@ -76,24 +95,20 @@ public class DialoguePrinter : MonoBehaviour
             return;
 
         dialogueBox.text = "";
-        currentIndex++;
-        Debug.Log("clicked next " + conversation.Count);
-        if (currentIndex == conversation[dialogueNumber].lines.Count)
+        currentLine++;
+        //Debug.Log("clicked next " + conversation.Count);
+        if (dialogueNumber==-1 || currentLine == conversation[dialogueNumber].lines.Count)
         {
             if (!LoadNextDialogue())
             {
                 //dialogueBox.text = "Finish.";
                 gameObject.SetActive(false);
-                isDoneIterating = false;
                 return;
             }
-            else
-            {
-                currentIndex = 0;
-            }
-
         }
-        StartCoroutine(IterateDialogue(conversation[dialogueNumber].lines[currentIndex]));
+        if(writer!=null)
+            StopCoroutine(writer);
+        writer=StartCoroutine(IterateDialogue(conversation[dialogueNumber].lines[currentLine]));
     }
 
     public void Back()
@@ -103,10 +118,10 @@ public class DialoguePrinter : MonoBehaviour
 
         isDoneIterating = false;
 
-        if (currentIndex > 0)
+        if (currentLine > 0)
         {
             dialogueBox.text = "";
-            currentIndex--;
+            currentLine--;
         }
     }
 
@@ -116,6 +131,7 @@ public class DialoguePrinter : MonoBehaviour
         {
             dialogueNumber++;
             characterName.text = conversation[dialogueNumber].characterName;
+            currentLine = 0;
             Debug.Log("loaded dialogue" + conversation.Count);
             return true;
         }
@@ -125,5 +141,9 @@ public class DialoguePrinter : MonoBehaviour
     public void AutoSwitch()
     {
         autoNext = !autoNext;
+    }
+    private void OnDisable()
+    {
+        Reset();
     }
 }

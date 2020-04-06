@@ -13,7 +13,6 @@ public class CharacterMovement : MonoBehaviour
     Vector3 movementDirection;
     Vector3 targetVelocity;
     bool canMove=true;
-    bool isDashing=false;
 
     float movementDampening;
     readonly int walkBoolHash = Animator.StringToHash("Walking");

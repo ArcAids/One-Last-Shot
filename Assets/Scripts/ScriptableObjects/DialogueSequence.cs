@@ -8,9 +8,15 @@ public class DialogueSequence : ScriptableObject
     [SerializeField] public List<Dialogue> dialogues;
     [SerializeField] public bool autoScroll;
     [SerializeField] public bool pauseGame;
+    [SerializeField] public bool mustSpeak=true;
+    [SerializeField] public bool interruptable=false;
+
+    
     public void Play()
     {
-        DialoguePrinter.Instance.StartDialogue(this);
+        hideFlags = HideFlags.DontSave;
+        if(DialoguePrinter.Instance!=null)
+            DialoguePrinter.Instance.StartDialogue(this);
     }
 }
 

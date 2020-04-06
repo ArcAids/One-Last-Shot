@@ -18,6 +18,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
 
     float originalOrthographicSize;
     public Transform gunTransform { get => transform; }
+    public int AmmoLeft => magazine;
     public bool IsEmpty { get =>magazine<=0; }
     public Elements Element { get => element; set
         {
@@ -28,6 +29,7 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
 
     float lastShotTimer;
     float LastShotTimer { get { return lastShotTimer; } set { lastShotTimer = value; if (value <= 0) canShoot = true; } }
+
 
     float shotTimeDelay;
     bool canShoot;
@@ -95,6 +97,12 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
             return true;
         }
         return false;
+    }
+
+    public void FlipSpriteY(bool state)
+    {
+        model.flipY = state;
+        hands.flipY = state;
     }
 
     private void Update()

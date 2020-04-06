@@ -29,7 +29,7 @@ public class BulletBehaviour : Damage, IElementalShootable
         Invoke("Disable", lifeTime);
     }
 
-    protected void Disable()
+    protected virtual void Disable()
     {
         //GetComponent<Collider2D>().enabled = true;
         isAlive = false;

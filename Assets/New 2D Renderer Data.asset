@@ -58,4 +58,4 @@ MonoBehaviour:
   m_ShadowGroupShader: {fileID: 4800000, guid: d33b6d70b14697547ad0dc2d4debb009, type: 3}
   m_RemoveSelfShadowShader: {fileID: 4800000, guid: 02e071f10b6a15d4d87dac88ce529302,
     type: 3}
-  m_PostProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
+  m_PostProcessData: {fileID: 11400000, guid: f3768a562be50bf48802ca5bb809d2a3, type: 2}

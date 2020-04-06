@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 
 public class ElementalHealthBehaviour : HealthBehaviour, ITakeElementalDamage
 {
@@ -10,16 +10,21 @@ public class ElementalHealthBehaviour : HealthBehaviour, ITakeElementalDamage
 
     private void Awake()
     {
+        Init();
+    }
+
+    protected override void Init()
+    {
+        base.Init();
         body = GetComponentInChildren<SpriteRenderer>();
         Element = notImmuneTo;
-        Health = MaxHealth;
     }
 
     public void TakeDamage(float damage, Elements element)
     {
         if (element == Element)
         {
-            TakeDamage(damage);
+            TakeDamage(damage); 
         }
     }
 

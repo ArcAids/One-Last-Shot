@@ -1,12 +1,11 @@
 ﻿public interface ITakeDamage
 {
+    //void TakeDamage(DamageData damage);
+
     bool IsAlive { get; }
-    float MaxHealth { get; }
-
+    float Health { get; }
     void TakeDamage(float damage);
-
     void OnDeath();
-
 }
 
 public interface ITakeElementalDamage : ITakeDamage ,IElemental

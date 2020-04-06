@@ -4,10 +4,11 @@ public interface IWeapon {
 
     Transform gunTransform { get; }
 
-    bool IsEmpty { get; }
+    int AmmoLeft { get; }
     bool Shoot();
     void Equip();
     void Dequip();
+    void FlipSpriteY(bool flipState);
 }
 
 public interface IElementalWeapon : IWeapon, IElemental

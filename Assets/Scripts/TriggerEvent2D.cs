@@ -8,8 +8,14 @@ public class TriggerEvent2D : MonoBehaviour
 {
     [SerializeField] UnityEvent onTriggerEnter;
 
+    [SerializeField] List<string> tags;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        onTriggerEnter.Invoke();
+        foreach (var tag in tags)
+        {
+            if(collision.CompareTag(tag))
+                onTriggerEnter.Invoke();
+        }
     }
 }
