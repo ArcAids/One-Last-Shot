@@ -47,7 +47,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 1.5
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
   m_PointLightOuterRadius: 0.96
-  m_PointLightDistance: 3
+  m_PointLightDistance: 2
   m_PointLightQuality: 0
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5243406891880676671}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
@@ -210,12 +210,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2f8520d9c4ee44ab990d69d2f9a909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  duration: 1
+  delay: 0
   xDirection: 0
   yDirection: 0.4
-  easeType: 28
-  loopType: 2
   ease: 28
+  loops: 1
   loopingType: 1
 --- !u!114 &1545524732
 MonoBehaviour:
@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec26e80a99c3ef448b24e56620faf9c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  only2States: 1
-  switchThreshold: 0.3
+  only2States: 0
+  switchThreshold: 0.5
   minIntensity: 0
 --- !u!1 &5243406892624583425
 GameObject:
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5243406892624583425}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
@@ -318,12 +318,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2f8520d9c4ee44ab990d69d2f9a909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.8
+  duration: 1
+  delay: 0
   xDirection: 0.4
   yDirection: 0
-  easeType: 28
-  loopType: 2
   ease: 28
+  loops: 1
   loopingType: 1
 --- !u!114 &1108424597
 MonoBehaviour:
@@ -337,8 +337,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec26e80a99c3ef448b24e56620faf9c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  only2States: 1
-  switchThreshold: 0.3
+  only2States: 0
+  switchThreshold: 0.5
   minIntensity: 0
 --- !u!1 &5243406892839549660
 GameObject:

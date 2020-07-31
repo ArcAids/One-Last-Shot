@@ -5080,6 +5080,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5187,7 +5188,7 @@ MonoBehaviour:
   isInvincible: 0
   health: 2
   maxHealth: 2
-  playerHealth: {fileID: 5784621413341988295}
+  playerHealthUI: {fileID: 0}
   onDeathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -5252,6 +5253,20 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDamageTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5360,6 +5375,7 @@ MonoBehaviour:
   target: {fileID: 0}
   eatsCorpse: 1
   config: {fileID: 11400000, guid: c31c0caf411fba342bb9b76827fa5a2e, type: 2}
+  targetDistance: 1
 --- !u!114 &6785312818181607072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5495,6 +5511,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.17572784, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

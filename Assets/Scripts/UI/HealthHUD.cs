@@ -7,6 +7,7 @@ public class HealthHUD : MonoBehaviour
     [SerializeField] HealthChunk heart;
     [SerializeField] bool showEmptyHearts;
     [SerializeField] float updateSpeed;
+    [SerializeField] AudioSource heartBeat;
     List<HealthChunk> hearts=new List<HealthChunk>();
 
     float currentHealth;
@@ -27,6 +28,10 @@ public class HealthHUD : MonoBehaviour
         {
             StopAllCoroutines();
             StartCoroutine(UpdateUI());
+            if (health == 0)
+                heartBeat.Stop();
+            else if (health <= 1)
+                heartBeat?.Play();
         }
     }
 

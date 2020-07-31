@@ -5,28 +5,56 @@ using DG.Tweening;
 public class TweenScale : MonoBehaviour
 {
     [SerializeField] bool startOnAwake = true;
-    [SerializeField] float speed;
+    [SerializeField] float duration;
+    [SerializeField] float delay=0;
     [SerializeField] public float xPercentage;
     [SerializeField] public float yPercentage;
-    [SerializeField] iTween.LoopType loopType;
-    [SerializeField] iTween.EaseType easeType;
     [SerializeField] Ease ease=Ease.InSine;
     [SerializeField] bool loops = true;
     [SerializeField] LoopType loopingType;
 
-
-    // Start is called before the first frame update
-    void Start()
+    Vector3? originalScale;
+    Tween tween;
+    void Awake()
     {
-        if (startOnAwake) StartTween();
+        originalScale = transform.localScale;
     }
-
+   
+    void OnEnable()
+    {
+        if (startOnAwake)
+            StartTween();
+    }
+   
     public void StartTween()
     {
+        if(!originalScale.HasValue)
+            originalScale=transform.localScale;
+
+        if(tween!=null)
+            tween.Complete();
+        StartTween(duration,delay);
+    }
+    public void StartTween(float duration)
+    {
+        StartTween(duration, delay);
+    }
+
+    public void Rewind()
+    {
+        if(tween!=null)
+            tween.Kill();
+
+        transform.DOScale(originalScale.Value, duration).SetDelay(delay).SetEase(ease);
+    }
+
+    public void StartTween(float duration,float delay)
+    {
+        transform.localScale = originalScale.Value;
+
         Vector3 scaleTo = new Vector3(transform.localScale.x * xPercentage, transform.localScale.y * yPercentage, transform.localScale.z);
-        Tween tween=transform.DOScale(scaleTo,speed).SetEase(ease).SetSpeedBased();
+        tween = transform.DOScale(scaleTo, duration).SetDelay(delay).SetEase(ease);
         if (loops)
             tween.SetLoops(-1, loopingType);
-        //iTween.ScaleTo(gameObject, iTween.Hash("y", transform.localScale.y * yPercentage, "x", transform.localScale.x * xPercentage, "EaseType", easeType, "LoopType", loopType, "speed", speed));
     }
 }

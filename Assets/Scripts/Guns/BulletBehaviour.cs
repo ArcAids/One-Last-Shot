@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class BulletBehaviour : Damage, IElementalShootable 
+public class BulletBehaviour : Damage, IElementalShootable
 {
-    [SerializeField] protected float speed=15;
-    [SerializeField] protected float lifeTime =3;
-    [SerializeField] protected float penetration=5;
-    [SerializeField] protected float shotImpact=2;
+    [SerializeField] protected float speed = 15;
+    [SerializeField] protected float lifeTime = 3;
+    [SerializeField] protected float penetration = 5;
+    [SerializeField] protected float shotImpact = 2;
 
     protected Rigidbody2D rigid;
     protected SpriteRenderer model;
     protected TrailRenderer tail;
-    protected bool isAlive=true;
+    protected bool isAlive = true;
 
     protected void Awake()
     {
-        rigid=GetComponent<Rigidbody2D>();
-        model=GetComponent<SpriteRenderer>();
-        tail = GetComponent<TrailRenderer>();
+        TryGetComponent(out rigid);
+        TryGetComponent(out model);
+        TryGetComponent(out tail);
     }
 
 
@@ -41,40 +41,45 @@ public class BulletBehaviour : Damage, IElementalShootable
     {
         if (!collision.isTrigger)
             return;
-        ITakeDamage target = collision.GetComponent<ITakeDamage>();
         if (penetration > 0)
         {
+            ITakeDamage target;
+            collision.TryGetComponent(out target);
             if (target != null && target.IsAlive)
             {
                 DoDamage(target);
                 penetration--;
             }
-
-            ApplyForce(collision.GetComponent<Rigidbody2D>());
+            Rigidbody2D rigid;
+            if(collision.TryGetComponent(out rigid))
+                ApplyForce(rigid);
         }
         else
             Disable();
     }
 
-    void ApplyForce(Rigidbody2D target)
+    protected void ApplyForce(Rigidbody2D target)
     {
         if (target == null)
             return;
         target.velocity += rigid.velocity.normalized * shotImpact;
     }
 
-    protected void ChangeElement(Elements value)
+    protected virtual void ChangeElement(Elements value)
     {
-        model.color = ElementalUtility.GetColor(value);
-        Gradient colorGradient = new Gradient();
-        colorGradient.colorKeys = new GradientColorKey[] { new GradientColorKey(ElementalUtility.GetColor(value), 0), new GradientColorKey(Color.white, 1) };
-        tail.colorGradient = colorGradient;
+        if (tail != null)
+        {
+            model.color = ElementalUtility.GetColor(value);
+            Gradient colorGradient = new Gradient();
+            colorGradient.colorKeys = new GradientColorKey[] { new GradientColorKey(ElementalUtility.GetColor(value), 0), new GradientColorKey(Color.white, 1) };
+            tail.colorGradient = colorGradient;
+        }
     }
 
     public override void SwitchElement(Elements element)
     {
         base.SwitchElement(element);
-        //ChangeElement(element);
+        ChangeElement(element);
     }
 
 }

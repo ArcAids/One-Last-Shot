@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1228cf243a6e88a4895326eef45fba68, type: 3}
+  m_Name: Bazuka
+  m_EditorClassIdentifier: 
+  gunName: Bazuka
+  magazine: 2
+  fireRate: 0.5
+  zoom: 10
+  holdOffset: {x: -1, y: 0.5}
+  sprite: {fileID: 21300000, guid: 36cacc11a13a09548b887482d42d984a, type: 3}
+  shotSound: {fileID: 8300000, guid: 0f85f898625fdad4db6b5e70d89c538b, type: 3}
+  bulletPrefab: {fileID: 958279343772412653, guid: 66689e97b4f8f15478ab0781d46e981f,
+    type: 3}

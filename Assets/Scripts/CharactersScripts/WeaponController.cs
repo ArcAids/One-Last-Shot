@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-
 public class WeaponController : MonoBehaviour, IElemental
 { 
     [SerializeField] Transform gunPivot;
     [SerializeField] Transform gunHolder;
     [SerializeField] IElementalWeapon weapon;
+    [SerializeField] WeaponBehaviour currentWeapon;
     [SerializeField] ElementalEventController elementController;
     [SerializeField] WeaponsEventController weaponEvent;
     [SerializeField] WeaponHUDManager hudManager;
@@ -14,7 +14,6 @@ public class WeaponController : MonoBehaviour, IElemental
 
     Elements currentElement;
     IWeaponInput input;
-    SpriteRenderer sprite;
 
     Vector3 aimDirection;
     float aimAngle;
@@ -28,18 +27,20 @@ public class WeaponController : MonoBehaviour, IElemental
 
     private void Start()
     {
-        input = GetComponent<IWeaponInput>();
-        
+        TryGetComponent(out input);
+        IElementalWeapon startWeapon;
+        if (currentWeapon != null && currentWeapon.TryGetComponent(out startWeapon))
+            Equip(startWeapon);
     }
 
     private void OnEnable()
     {
-        elementController.RegisterElmentSwitch(this);
+        elementController?.RegisterElmentSwitch(this);
     }
 
     private void OnDisable()
     {
-        elementController.DeregisterElmentSwitch(this);
+        elementController?.DeregisterElmentSwitch(this);
     }
 
     private void Update()
@@ -53,15 +54,16 @@ public class WeaponController : MonoBehaviour, IElemental
     void Equip(IElementalWeapon weapon)
     {
         this.weapon = weapon;
+        weapon.GunTransform.TryGetComponent(out currentWeapon);
         weapon.Equip();
         weapon.SwitchElement(Element);
-        pointer.Deactivate();
+        pointer?.Deactivate();
         gunHolder.localScale = new Vector2(1, 1);
-        weapon.gunTransform.parent = gunHolder;
-        weapon.gunTransform.localPosition = Vector2.zero;
-        weapon.gunTransform.localRotation= Quaternion.identity;
-        sprite = weapon.gunTransform.GetComponent<SpriteRenderer>();
-        hudManager.SetWeaponData(weapon.gunTransform.name,weapon.AmmoLeft,weapon.AmmoLeft,sprite.sprite);
+        weapon.GunTransform.parent = gunHolder;
+        weapon.GunTransform.localRotation= Quaternion.identity;
+        weapon.GunTransform.localPosition = weapon.WeaponData.HoldOffset;
+      
+        hudManager?.SetWeaponData(weapon.WeaponData,weapon.AmmoLeft);
     }
 
 
@@ -70,15 +72,15 @@ public class WeaponController : MonoBehaviour, IElemental
         aimDirection.x= input.MouseXDirection;
         aimDirection.y= input.MouseYDirection;
         aimAngle = Vector2.SignedAngle(Vector2.right,aimDirection);
-        if (sprite != null)
+        //if (sprite != null)
         {
             weapon?.FlipSpriteY(aimDirection.x < 0);
         }
-        else
-        if (aimDirection.x <0)
-            gunHolder.localScale = new Vector2(1,-1);
-        else
-            gunHolder.localScale = new Vector2(1,1);
+        //else
+        //if (aimDirection.x <0)
+        //    gunHolder.localScale = new Vector2(1,-1);
+        //else
+        //    gunHolder.localScale = new Vector2(1,1);
 
         gunPivot.rotation =Quaternion.Euler(0,0,aimAngle);
     }
@@ -90,14 +92,15 @@ public class WeaponController : MonoBehaviour, IElemental
 
         if (weapon.Shoot())
         {
-            weaponEvent.OnWeaponShot();
-            hudManager.UpdateAmmoCount(weapon.AmmoLeft);
+            weaponEvent?.OnWeaponShot();
+            hudManager?.UpdateAmmoCount(weapon.AmmoLeft);
         }
         if (weapon.AmmoLeft<=0)
         {
             weapon.Dequip();
+            weaponEvent?.OnWeaponDequip();
             weapon = null;
-            hudManager.SetDefaultState();
+            hudManager?.SetDefaultState();
         }
         
     }

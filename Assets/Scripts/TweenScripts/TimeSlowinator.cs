@@ -23,13 +23,15 @@ public class TimeSlowinator : MonoBehaviour
 
     IEnumerator TimeSlow(float timeDifference, float duration)
     {
-        float transitionTime=0;
-        while (transitionTime<=1)
-        {
-            transitionTime += Time.unscaledDeltaTime;
-            Time.timeScale = 1+ (timeDifference * transitionCurve.Evaluate(transitionTime));
-            Debug.Log(Time.timeScale);
-        }
+        //float transitionTime=0;
+        //while (transitionTime<=1)
+        //{
+        //    transitionTime += Time.unscaledDeltaTime;
+        //    Time.timeScale = 1+ (timeDifference * transitionCurve.Evaluate(transitionTime));
+        //    Debug.Log(Time.timeScale);
+        //    yield return null;
+        //}
+        Time.timeScale = Time.timeScale+timeDifference;
         yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = 1;
     }

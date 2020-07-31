@@ -2,7 +2,7 @@
 
 public class ElementalHealthBehaviour : HealthBehaviour, ITakeElementalDamage
 {
-    SpriteRenderer body;
+   // SpriteRenderer body;
     [SerializeField] Elements notImmuneTo;
     public Elements Element { get => notImmuneTo; private set { notImmuneTo = value;
             //body.color=ElementalUtility.GetColor(value);
@@ -16,16 +16,19 @@ public class ElementalHealthBehaviour : HealthBehaviour, ITakeElementalDamage
     protected override void Init()
     {
         base.Init();
-        body = GetComponentInChildren<SpriteRenderer>();
+        //body = GetComponentInChildren<SpriteRenderer>();
         Element = notImmuneTo;
     }
 
-    public void TakeDamage(float damage, Elements element)
+    public bool TakeDamage(float damage, Elements element)
     {
+        if (!IsAlive)
+            return false;
         if (element == Element)
         {
-            TakeDamage(damage); 
+            return TakeDamage(damage); 
         }
+        return false;
     }
 
     public void SwitchElement(Elements element)

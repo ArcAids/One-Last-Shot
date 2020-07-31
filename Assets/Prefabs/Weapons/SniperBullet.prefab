@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9129290721733660681}
   - component: {fileID: 5810122890197067827}
   - component: {fileID: 5423111689158288928}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,11 +150,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2f8520d9c4ee44ab990d69d2f9a909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  duration: 1
+  delay: 0
   xDirection: 0
   yDirection: 0.5
-  easeType: 21
-  loopType: 2
+  ease: 2
+  loops: 1
+  loopingType: 0
 --- !u!1 &1300972490596929476
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +170,7 @@ GameObject:
   - component: {fileID: 1300972490596929499}
   - component: {fileID: 1300972490596929496}
   - component: {fileID: 4434696758004639668}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: SniperBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +308,7 @@ GameObject:
   - component: {fileID: 3432810963100572669}
   - component: {fileID: 2957109022967155190}
   - component: {fileID: 2145525204683124088}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,11 +447,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2f8520d9c4ee44ab990d69d2f9a909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  duration: 1
+  delay: 0
   xDirection: 0
   yDirection: -0.5
-  easeType: 21
-  loopType: 2
+  ease: 2
+  loops: 1
+  loopingType: 0
 --- !u!1 &8000122262822225295
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +465,7 @@ GameObject:
   - component: {fileID: 1408886440443377102}
   - component: {fileID: 4863863934256227385}
   - component: {fileID: 3977657976050318214}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: GameObject (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,8 +503,9 @@ MonoBehaviour:
   speed: 600
   xDirection: 360
   yDirection: 0
-  easeType: 21
-  loopType: 1
+  ease: 2
+  loops: 1
+  loopingType: 0
 --- !u!114 &3977657976050318214
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5432610507468535994}
   - component: {fileID: 2159213055735724402}
   - component: {fileID: 846840730}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Bullet (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Time: 0.2
+  m_Time: 0.05
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 206803646407685788}
   - component: {fileID: 5801866663524282294}
   - component: {fileID: 846840733}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -408,7 +408,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Time: 0.2
+  m_Time: 0.05
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -502,7 +502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4563698823618510144}
   - component: {fileID: 4563698823618510151}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: ShotGunShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -564,7 +564,7 @@ GameObject:
   - component: {fileID: 4563698824133749818}
   - component: {fileID: 6507147869010798087}
   - component: {fileID: 846840732}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Bullet (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -712,7 +712,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Time: 0.2
+  m_Time: 0.05
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -810,7 +810,7 @@ GameObject:
   - component: {fileID: 4563698824911312907}
   - component: {fileID: 325094935623417174}
   - component: {fileID: 846840735}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Bullet (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -958,7 +958,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Time: 0.2
+  m_Time: 0.05
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1056,7 +1056,7 @@ GameObject:
   - component: {fileID: 4563698825054236044}
   - component: {fileID: 4852053992925496485}
   - component: {fileID: 846840731}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Bullet (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1204,7 +1204,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Time: 0.2
+  m_Time: 0.05
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1302,7 +1302,7 @@ GameObject:
   - component: {fileID: 4563698825351111283}
   - component: {fileID: 6994463374220988874}
   - component: {fileID: 846840729}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Bullet (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1450,7 +1450,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Time: 0.2
+  m_Time: 0.05
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1548,7 +1548,7 @@ GameObject:
   - component: {fileID: 4366344933264050055}
   - component: {fileID: 4888107647268881544}
   - component: {fileID: 846840734}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Bullet (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1696,7 +1696,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Time: 0.2
+  m_Time: 0.05
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

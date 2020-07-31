@@ -6,7 +6,7 @@ public class Damage : MonoBehaviour, IElemental
 {
     [SerializeField] protected float damage = 1;
 
-    [SerializeField] protected Elements element;
+    [SerializeField] Elements element;
     public Elements Element { get => element; set => element=value; }
 
     private void Awake()
@@ -19,17 +19,29 @@ public class Damage : MonoBehaviour, IElemental
         Element = element;
     }
 
-    protected void DoDamage(ITakeDamage target)
+    protected bool DoDamage(ITakeDamage target)
     {
         if (target != null && target.IsAlive)
         {
             if (target is ITakeElementalDamage)
-                (target as ITakeElementalDamage).TakeDamage(damage, Element);
+                return (target as ITakeElementalDamage).TakeDamage(damage, Element);
 
             else if (target is ITakeDamage)
-                target.TakeDamage(damage);
+                return target.TakeDamage(damage);
 
 
         }
+        return false;
+    }
+
+    protected bool DoRawDamage(ITakeDamage target)
+    {
+        if (target != null && target.IsAlive)
+        {
+            if(!(target is ITakeElementalDamage))
+            return target.TakeDamage(damage);
+
+        }
+        return false;
     }
 }

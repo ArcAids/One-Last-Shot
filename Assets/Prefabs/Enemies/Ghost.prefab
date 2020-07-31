@@ -4872,6 +4872,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4958,7 +4959,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.1}
+  m_AnchoredPosition: {x: 0, y: 2.85}
   m_SizeDelta: {x: 10, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1039588829059704278
@@ -5081,6 +5082,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.17572784, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5149,8 +5151,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  eatsCorpse: 1
-  config: {fileID: 0}
+  eatsCorpse: 0
+  config: {fileID: 11400000, guid: c31c0caf411fba342bb9b76827fa5a2e, type: 2}
+  targetDistance: 1
 --- !u!114 &1039588829522234001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5166,7 +5169,7 @@ MonoBehaviour:
   isInvincible: 0
   health: 1
   maxHealth: 1
-  playerHealth: {fileID: 1039588829502058552}
+  playerHealthUI: {fileID: 0}
   onDeathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -5247,6 +5250,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onDamageTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1198215732883580828}
+        m_MethodName: Flash
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   notImmuneTo: 2
 --- !u!114 &1039588829522234002
 MonoBehaviour:
@@ -5276,7 +5293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   damage: 1
-  delay: 0.5
+  delay: 0.3
 --- !u!50 &1630518112
 Rigidbody2D:
   serializedVersion: 4
@@ -5421,6 +5438,7 @@ GameObject:
   - component: {fileID: 4747287909328884161}
   - component: {fileID: 2809857626600043984}
   - component: {fileID: 1661798569}
+  - component: {fileID: 1198215732883580828}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -5505,8 +5523,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2f8520d9c4ee44ab990d69d2f9a909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  duration: 1
+  delay: 0
   xDirection: 0
   yDirection: 0.2
-  easeType: 14
-  loopType: 2
+  ease: 2
+  loops: 1
+  loopingType: 0
+--- !u!114 &1198215732883580828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6453282633129972635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a45312d56e143794f94245056196fea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0.2784314, g: 0.19215688, b: 0.59607846, a: 1}
+  duration: 0.1
+  frequency: 3

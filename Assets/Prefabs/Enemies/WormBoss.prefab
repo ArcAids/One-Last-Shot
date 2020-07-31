@@ -5217,7 +5217,6 @@ MonoBehaviour:
   isInvincible: 0
   health: 2
   maxHealth: 10
-  playerHealth: {fileID: 0}
   playerHealthUI: {fileID: 1556414610927641650}
   onDeathEvent:
     m_PersistentCalls:
@@ -5283,6 +5282,20 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDamageTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5391,6 +5404,7 @@ MonoBehaviour:
   target: {fileID: 0}
   eatsCorpse: 1
   config: {fileID: 11400000, guid: c31c0caf411fba342bb9b76827fa5a2e, type: 2}
+  targetDistance: 1
 --- !u!114 &8755363600283759043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5456,11 +5470,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startOnAwake: 0
-  speed: 1
+  duration: 0
+  delay: 0
   xPercentage: 0
   yPercentage: 0
-  easeType: 6
-  loopType: 0
+  ease: 2
+  loops: 1
+  loopingType: 0
 --- !u!114 &1917636439
 MonoBehaviour:
   m_ObjectHideFlags: 0

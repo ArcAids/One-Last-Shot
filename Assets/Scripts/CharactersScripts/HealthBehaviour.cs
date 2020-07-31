@@ -9,18 +9,18 @@ public class HealthBehaviour : MonoBehaviour , ITakeDamage
     [SerializeField] protected float maxHealth;
 
     [Space]
-    [SerializeField] Image playerHealth;
+    //[SerializeField] Image playerHealth;
     [SerializeField] HealthHUD playerHealthUI;
     [SerializeField] UnityEvent onDeathEvent;
+    [SerializeField] UnityEvent onDamageTaken;
     public float Health { get => health; protected set { health = value < 0 ? 0 : value; if (playerHealthUI != null)
                 //playerHealth.fillAmount = (value / MaxHealth);
                 playerHealthUI.UpdateHealth(health);
                 } }
 
     public float MaxHealth => maxHealth;
-
-    protected bool isAlive = true;
-    public bool IsAlive { get => isAlive; set { isAlive = value; } }
+    public bool IsAlive { get; set; }
+    public bool IsInvincible { get => isInvincible; set => isInvincible = value; }
 
     private void Awake()
     {
@@ -51,7 +51,7 @@ public class HealthBehaviour : MonoBehaviour , ITakeDamage
         gameObject.SetActive(false);
         Destroy(gameObject);
     }
-
+    [ContextMenu("Kill")]
     public virtual void OnDeath()
     {
         IsAlive = false;
@@ -60,18 +60,19 @@ public class HealthBehaviour : MonoBehaviour , ITakeDamage
         //Destroy(gameObject);
     }
 
-    public virtual void TakeDamage(float damage)
+    public virtual bool TakeDamage(float damage)
     {
-        if (isInvincible)
-            return;
-        if (!IsAlive)
-            return;
+        if (IsInvincible || !IsAlive)
+            return false;
+
         Health -= damage;
+
         if (Health <= 0)
         {
-
             OnDeath();
-        }
+        }else
+            onDamageTaken.Invoke();
+        return true;
     }
 
 }

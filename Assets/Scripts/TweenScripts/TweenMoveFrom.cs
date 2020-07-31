@@ -7,8 +7,6 @@ public class TweenMoveFrom : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float xDirection;
     [SerializeField] float yDirection;
-    [SerializeField] iTween.EaseType easeType;
-    [SerializeField] iTween.LoopType loopType;
     [SerializeField] Ease ease = Ease.InSine;
     [SerializeField] bool loops=true;
     [SerializeField] LoopType loopingType;

@@ -1,36 +1,60 @@
-﻿using UnityEngine;
+﻿using ArcAid.UI;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Transform winScreen;
+    [SerializeField] GameObject winScreen;
+    [SerializeField] GameObject loseScreen;
     [SerializeField] PlayerController player;
-    [SerializeField] Transform pauseMenu;
+    [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject gameHUD;
+    [SerializeField] GameObject journal;
 
-    public static bool gameOn;
+    public static bool gameOn=true;
+    bool gameOver=false;
     public void YouWin()
     {
-        gameOn = false;
-        winScreen.gameObject.SetActive(true);
+        gameOver = true;
+        winScreen.SetActive(true);
+        player.DisableControls();
+    }
+
+    public void YouLose()
+    {
+        gameOver = true;
+        loseScreen.SetActive(true);
         player.DisableControls();
     }
 
     public void Pause()
     {
-        Time.timeScale = 0;
+        if (gameOver)
+            return;
         gameOn = false;
-        pauseMenu.gameObject.SetActive(true);
+        pauseMenu.SetActive(true,true);
+        gameHUD.SetActive(false,true);
+        Time.timeScale = 0;
+        player.DisableControls();
     }
 
     public void UnPause()
     {
+
+        if (journal.activeSelf)
+        {
+            journal.SetActive(false);
+            return;
+        }
         Time.timeScale = 1;
         gameOn = true;
-        pauseMenu.gameObject.SetActive(false);
+        pauseMenu.SetActive(false,true);
+        gameHUD.SetActive(true,true);
+        player.EnableControls();
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && !gameOver)
         {
             if (!gameOn)
                 UnPause();

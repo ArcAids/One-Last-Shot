@@ -14,7 +14,6 @@ public class DialogueSequence : ScriptableObject
     
     public void Play()
     {
-        hideFlags = HideFlags.DontSave;
         if(DialoguePrinter.Instance!=null)
             DialoguePrinter.Instance.StartDialogue(this);
     }

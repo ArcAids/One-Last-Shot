@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1228cf243a6e88a4895326eef45fba68, type: 3}
+  m_Name: Sniper
+  m_EditorClassIdentifier: 
+  gunName: Sniper
+  magazine: 3
+  fireRate: 1
+  zoom: 12
+  holdOffset: {x: 0, y: 0}
+  sprite: {fileID: 21300000, guid: 017225fcdc52ae34586184f224f790f9, type: 3}
+  shotSound: {fileID: 8300000, guid: 0f85f898625fdad4db6b5e70d89c538b, type: 3}
+  bulletPrefab: {fileID: 1300972490596929476, guid: ab3e9f5e830389b40808c5638d90cb7e,
+    type: 3}

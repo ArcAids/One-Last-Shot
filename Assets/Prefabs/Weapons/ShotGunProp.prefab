@@ -268,17 +268,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f6282afd7ed57e4980368b87df1189c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4563698823618510145, guid: cfb363f14fbd3584891822de8b6c1f4a,
-    type: 3}
+  data: {fileID: 11400000, guid: 87a03e8f918906148bf3dd34f06947b6, type: 2}
   muzzle: {fileID: 2811436611434953257}
   element: 2
-  magazine: 1
-  fireRate: 1
+  ammoLeft: 1
+  holdOffset: {x: 0, y: 0}
   model: {fileID: 0}
   hands: {fileID: 7576292184001251796}
-  cam: {fileID: 0}
-  zoom: 10
-  audio: {fileID: 6114577761424722110}
   onShot:
     m_PersistentCalls:
       m_Calls:

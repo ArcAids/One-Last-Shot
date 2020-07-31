@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ArcAid.UI;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,11 +13,16 @@ public class ElementSelected : MonoBehaviour, IElemental
 
     float target;
     float currentValue;
+
+    IUIItemsController ItemController;
     public Elements Element
     {
         get; set;
     }
-
+    private void Awake()
+    {
+        TryGetComponent(out ItemController);
+    }
 
     private void OnEnable()
     {
@@ -30,12 +36,13 @@ public class ElementSelected : MonoBehaviour, IElemental
 
     public void SwitchElement(Elements element)
     {
-        target = (int)element + 1;
+        //target = (int)element + 1;
+        ItemController.SelectItem((int)element);
     }
 
     private void FixedUpdate()
     {
-        currentValue = Mathf.Lerp(currentValue,target,Time.fixedDeltaTime *speed);
-        animator.SetFloat("Blend", currentValue);
+        //currentValue = Mathf.Lerp(currentValue,target,Time.fixedDeltaTime *speed);
+        //animator.SetFloat("Blend", currentValue);
     }
 }

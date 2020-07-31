@@ -32,21 +32,21 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 0
   threshold:
-    m_OverrideState: 1
-    m_Value: 1
+    m_OverrideState: 0
+    m_Value: 0
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 1.7
+    m_Value: 2
     min: 0
   scatter:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.996
     min: 0
     max: 1
   clamp:
     m_OverrideState: 0
-    m_Value: 65472.99
+    m_Value: 65450.1
     min: 0
   tint:
     m_OverrideState: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.416
+    m_Value: 0.305
     min: 0
     max: 1
   smoothness:
@@ -192,17 +192,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
   m_Name: ShadowsMidtonesHighlights
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   shadows:
     m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_Value: {x: 0.9851248, y: 1, z: 0.9218582, w: 0}
   midtones:
     m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_Value: {x: 0.87514085, y: 1, z: 0.9519065, w: 0}
   highlights:
     m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_Value: {x: 0.092446744, y: 0.70117265, z: 1, w: 0}
   shadowsStart:
     m_OverrideState: 0
     m_Value: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.365
+    m_Value: 0.172
     min: -1
     max: 1
   xMultiplier:

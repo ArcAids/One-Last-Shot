@@ -21,4 +21,8 @@ public class WavesInfo : ScriptableObject
 {
     public List<Wave> waves;
     public bool endless;
+    public void SetEndless(bool value)
+    {
+        endless = value;
+    }
 }

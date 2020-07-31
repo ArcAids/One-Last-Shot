@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Events/EnemiesEvent")]
 public class EnemyDeathEvent : ScriptableObject
 {
     [Header("Prefabs")]
@@ -102,6 +102,14 @@ public class EnemyDeathEvent : ScriptableObject
         foreach (var listener in listeners)
         {
             listener.OnBossDeath();
+        }
+    }
+
+    public void TargetKilled()
+    {
+        foreach (var enemy in spawnedEnemies)
+        {
+            enemy.SetTarget(null);
         }
     }
 }

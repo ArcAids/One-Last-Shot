@@ -35,9 +35,12 @@ public class WavesManager : MonoBehaviour, IEnemyDeathListener
 
     [SerializeField] List<WaveData> wavesData;
     [SerializeField] WavesInfo wavesInfo;
+    [SerializeField] WeaponsEventController weaponEventController;
     [SerializeField] float delayBeforeWaves;
     [SerializeField] EnemyDeathEvent deathEvent;
     [SerializeField] TMPro.TMP_Text waver;
+    [SerializeField] RectTransform waveCenterTransform;
+    [SerializeField] DayNightCycler2D dayNightCycler;
     EnemySpawner enemyManager;
 
     bool isSpawning=false;
@@ -66,6 +69,8 @@ public class WavesManager : MonoBehaviour, IEnemyDeathListener
     void StartWave()
     {
         currentWave++;
+
+
         if(wavesInfo!=null && !wavesInfo.endless)
         {
             if (currentWave >= wavesInfo.waves.Count)
@@ -74,11 +79,13 @@ public class WavesManager : MonoBehaviour, IEnemyDeathListener
                 return;
             }
             //if (wavesData != null)
-               // StartCoroutine(WaveSpawner(wavesData[currentWave]));
+            // StartCoroutine(WaveSpawner(wavesData[currentWave]));
             StartCoroutine(WaveSpawner(wavesInfo.waves[currentWave]));
         }
         else
-            StartCoroutine(WaveSpawner(currentWave,(currentWave+1)*3,currentWave,Mathf.Max((20-currentWave)*0.1f,0.5f)));
+            StartCoroutine(WaveSpawner(currentWave+1,Mathf.Min((currentWave+1)*3,40),currentWave,Mathf.Max((20-currentWave)*0.1f,0.5f)));
+        
+        dayNightCycler.FlowDayTime(.2f);
     }
 
     IEnumerator WaveSpawner(WaveData wave)
@@ -101,32 +108,45 @@ public class WavesManager : MonoBehaviour, IEnemyDeathListener
     }
     IEnumerator WaveSpawner(Wave wave)
     {
-        waver.gameObject.SetActive(true);
+        waveCenterTransform.gameObject.SetActive(true);
         waver.text = "Wave "+(currentWave+1);
         yield return new WaitForSeconds(delayBeforeWaves);
-        waver.gameObject.SetActive(false);
+        waveCenterTransform.gameObject.SetActive(false);
         isSpawning = true;
-        foreach (var enemy in wave.enemies)
+        float multiplier=1;
+        if (!weaponEventController.OneShot)
         {
-            yield return new WaitForSeconds(wave.delayBetweenSpawns);
-            enemyManager.Spawn(enemy);
+            multiplier = 3;
         }
+
+        for (int i = 0; i < multiplier; i++)
+            foreach (var enemy in wave.enemies)
+            {
+                yield return new WaitForSeconds(wave.delayBetweenSpawns);
+                enemyManager.Spawn(enemy);
+            }
         isSpawning = false;
     }
 
     IEnumerator WaveSpawner(int waveNumber, int numberOfEnemies, int numberOfBosses, float delayBetweenEnemies)
     {
-        waver.gameObject.SetActive(true);
-        waver.text = "Wave " + (currentWave + 1);
+        waveCenterTransform.gameObject.SetActive(true);
+        waver.text = "Wave " + (waveNumber);
+        yield return new WaitForSeconds(delayBeforeWaves);
+        waveCenterTransform.gameObject.SetActive(false);
         isSpawning = true;
+
+        if (!weaponEventController.OneShot)
+        {
+            numberOfEnemies *= 3;
+            numberOfBosses *= 2;
+        }
 
         int enemiesAlive = numberOfEnemies + numberOfBosses;
         float bossChance = (float)numberOfBosses/enemiesAlive;
         int bossesToSpawn=numberOfBosses;
         bool isBoss;
 
-        yield return new WaitForSeconds(delayBeforeWaves);
-        waver.gameObject.SetActive(false);
         for (int i = 0; i < enemiesAlive; i++)
         {
             isBoss = bossesToSpawn<=0?false: Random.Range(0f, 1f) < bossChance;
@@ -140,7 +160,6 @@ public class WavesManager : MonoBehaviour, IEnemyDeathListener
 
     public void OnDeath()
     {
-        Debug.Log("enemies left: "+ deathEvent.enemiesAlive);
         if (!isSpawning && deathEvent.enemiesAlive <= 0)
             StartWave();
     }

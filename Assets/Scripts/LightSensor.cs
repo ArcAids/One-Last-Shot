@@ -27,35 +27,51 @@ public class LightSensor : MonoBehaviour , ISenseLight
         intensityRange = maxIntensity - minIntensity;
     }
 
+    private void Start()
+    {
+        if (DayNightCycler2D.DNCycler != null)
+        { 
+            DayNightCycler2D.DNCycler.RegisterLight(this);
+            
+        }
+    }
+
     private void OnEnable()
     {
-        DayNightCycler2D.RegisterLight(this);
+        if (DayNightCycler2D.DNCycler != null)
+        {
+            DayNightCycler2D.DNCycler.RegisterLight(this);
+        }
     }
 
     private void OnDisable()
     {
-        DayNightCycler2D.UnregisterLight(this);
+        if(DayNightCycler2D.DNCycler!=null)
+            DayNightCycler2D.DNCycler.UnregisterLight(this);
     }
 
-    public void UpdateLight(float sunIntensity)
+    public void UpdateLight(float sunIntensityRatio)
     {
         if(connectedLight!=null)
         {
             if (only2States){
-                if (sunIntensity < switchThreshold)
+                if (sunIntensityRatio < switchThreshold)
                     connectedLight.enabled = true;
                 else
                     connectedLight.enabled = false;
             }
             else
-                connectedLight.intensity = CalculateIntensity(1- sunIntensity);
+            {
+                connectedLight.enabled = true;
+                connectedLight.intensity = CalculateIntensity(sunIntensityRatio);
+            }
         }
 
     }
 
-    float CalculateIntensity(float targetIntensity)
+    float CalculateIntensity(float targetIntensityRatio)
     {
-        float intensity =intensityRange * targetIntensity;
+        float intensity =intensityRange * (1-targetIntensityRatio);
         intensity += minIntensity;
         return Mathf.Max(0, intensity);
     }

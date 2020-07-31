@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class AIAttack : MonoBehaviour
     [SerializeField] float damage;
     [SerializeField] float delay;
 
-    bool canAttack=true;
+    bool canAttack=false;
 
     ITakeDamage victim;
     bool close;
@@ -30,6 +31,10 @@ public class AIAttack : MonoBehaviour
     {
         canAttack = false;
     }
+     public void EnableAttack()
+    {
+        canAttack = true;
+    }
 
     IEnumerator AttemptHit(ITakeDamage victim)
     {
@@ -41,6 +46,7 @@ public class AIAttack : MonoBehaviour
         }
         
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         ITakeDamage victim = collision.GetComponent<ITakeDamage>();

@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 52
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -15,8 +15,8 @@ MonoBehaviour:
   dialogues:
   - characterName: Ava
     lines:
-    - At least music is lit.
+    - At least the music is lit.
   autoScroll: 1
   pauseGame: 0
-  mustSpeak: 1
+  mustSpeak: 0
   interruptable: 0

@@ -4,22 +4,21 @@ using UnityEngine.Events;
 
 public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
 {
-    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] WeaponData data;
     [SerializeField] Transform muzzle;
     [SerializeField] Elements element;
-    [SerializeField] int magazine=1;
-    [SerializeField] float fireRate=1;
-    [SerializeField] SpriteRenderer model;
+    [SerializeField] int ammoLeft=1;
     [SerializeField] SpriteRenderer hands;
-    [SerializeField] Cinemachine.CinemachineVirtualCamera cam;
-    [SerializeField] float zoom;
-    [SerializeField] new AudioSource audio;
+
     [SerializeField] UnityEvent onShot;
 
-    float originalOrthographicSize;
-    public Transform gunTransform { get => transform; }
-    public int AmmoLeft => magazine;
-    public bool IsEmpty { get =>magazine<=0; }
+    SpriteRenderer model;
+    Cinemachine.CinemachineVirtualCamera cam;
+    AudioSource audioSource;
+    float originalOrthographicSize=10;
+    public Transform GunTransform { get => transform; }
+    public int AmmoLeft => ammoLeft;
+    public bool IsEmpty { get =>ammoLeft<=0; }
     public Elements Element { get => element; set
         {
             element = value;
@@ -27,21 +26,18 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
         }
     }
 
+    public WeaponData WeaponData { get => data; }
+
     float lastShotTimer;
-    float LastShotTimer { get { return lastShotTimer; } set { lastShotTimer = value; if (value <= 0) canShoot = true; } }
-
-
-    float shotTimeDelay;
-    bool canShoot;
 
     private void Awake()
     {
-        model = GetComponent<SpriteRenderer>();
+        audioSource = GetComponentInChildren<AudioSource>();
+        if (model == null)
+            TryGetComponent(out model);
         Element = Element;
         if(cam==null)
             cam = FindObjectOfType<Cinemachine.CinemachineVirtualCamera>();
-        originalOrthographicSize = 10;
-        shotTimeDelay = 1/fireRate;
     }
 
     public void Dequip()
@@ -78,37 +74,43 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
             hands.enabled = true;
         if(cam==null)
             cam = FindObjectOfType<Cinemachine.CinemachineVirtualCamera>();
-        cam.m_Lens.OrthographicSize = zoom;
+        cam.m_Lens.OrthographicSize = data.Zoom;
     }
 
     public bool Shoot()
     {
-        if (magazine > 0 && canShoot)
+        if (ammoLeft > 0 && lastShotTimer<Time.time)
         {
-            IElementalShootable bullet=Instantiate(bulletPrefab, muzzle.position, muzzle.rotation, null).GetComponent<IElementalShootable>();
+            IElementalShootable bullet=Instantiate(data.BulletPrefab, muzzle.position, muzzle.rotation, null).GetComponent<IElementalShootable>();
             bullet.SwitchElement(Element);
-            if(audio!=null)
-                audio?.Play();
+            if(audioSource!=null)
+                audioSource?.Play();
             onShot.Invoke();
             bullet.Shoot();
-            magazine--;
-            canShoot = false;
-            LastShotTimer = shotTimeDelay;
+            ammoLeft--;
+            lastShotTimer = Time.time+data.DelayBetweenShots;
             return true;
         }
         return false;
+    }
+
+    public void Reload()
+    {
+        ammoLeft = data.Magazine;
     }
 
     public void FlipSpriteY(bool state)
     {
         model.flipY = state;
         hands.flipY = state;
-    }
-
-    private void Update()
-    {
-        if(!canShoot)
-            LastShotTimer -= Time.deltaTime;
+        if (state)
+        { 
+            Vector2 offset = data.HoldOffset;
+            offset.y = -offset.y;
+            transform.localPosition = offset;
+        }
+        else
+            transform.localPosition = data.HoldOffset;
     }
 
     public void SwitchElement(Elements element)

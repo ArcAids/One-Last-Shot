@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Events/ElementalEvent")]
 public class ElementalEventController : ScriptableObject
 {
     [SerializeField] Elements currentElement;

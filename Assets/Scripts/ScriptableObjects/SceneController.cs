@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Events/SceneController")]
 public class SceneController : ScriptableObject
 {
     [SerializeField] List<string> tips;
 
-   // Queue<(int, LoadSceneMode, bool)> LevelLoadQueue;
+    // Queue<(int, LoadSceneMode, bool)> LevelLoadQueue;
     LevelLoader listener;
 
-    [System.NonSerialized] protected bool inited=false;
+    [System.NonSerialized] protected bool inited = false;
 
+    AsyncOperation levelLoadingOperation;
+
+    int SceneToLoad=-1;
+    LoadSceneMode mode=LoadSceneMode.Single;
+
+    public bool IsLoading { get { if (levelLoadingOperation == null) return false; else return !levelLoadingOperation.isDone; } }
+    public int CurrentSceneIndex { get => SceneManager.GetActiveScene().buildIndex; }
+    public float Progress { get {if (levelLoadingOperation==null || levelLoadingOperation.isDone) return 1; else return levelLoadingOperation.progress; } }
     public virtual void Init()
     {
         if (inited)
@@ -29,39 +37,60 @@ public class SceneController : ScriptableObject
             return string.Empty;
     }
 
-    public int GetCurrentSceneIndex()
+    public void FadeOutAndIn()
     {
-        return SceneManager.GetActiveScene().buildIndex; 
+        listener.FadeOut();
     }
 
-    public void Load(int sceneIndex, bool additive, bool showLoading=true)
+    void Load(int sceneIndex, bool additive, bool showLoading=true)
     {
-        if (sceneIndex < 0 || sceneIndex >= SceneManager.sceneCountInBuildSettings || (listener!=null && listener.isLoading && showLoading))
+        if (IsLoading || sceneIndex < 0 || sceneIndex >= SceneManager.sceneCountInBuildSettings)
             return;
+        SceneToLoad = sceneIndex;
+        mode = additive ? LoadSceneMode.Additive : LoadSceneMode.Single;
 
-        LoadSceneMode sceneMode = additive ? LoadSceneMode.Additive : LoadSceneMode.Single;
-
-        if (listener != null && showLoading)
+        if (listener != null)
         {
-            listener.LoadLevel(sceneIndex, sceneMode,FadeOutDone);
+            listener.PlayLevelTransition(showLoading);
         }
         else
-            SceneManager.LoadSceneAsync(sceneIndex,sceneMode);
+        {
+            StartLevelLoading();
+            FinishLevelLoading();
+        }
     }
 
-    protected virtual void FadeOutDone()
+    public virtual void StartLevelLoading()
     {
-        Debug.Log("fadeOutDone");
+        if (SceneToLoad < 0)
+            return;
+
+        levelLoadingOperation = SceneManager.LoadSceneAsync(SceneToLoad, mode);
+        levelLoadingOperation.allowSceneActivation = false;
+    }
+
+    public virtual void FinishLevelLoading()
+    {
+        levelLoadingOperation.allowSceneActivation = true;
+        SceneToLoad = -1;
+        mode = LoadSceneMode.Single;
     }
 
     public void Reload()
     {
-        Load(SceneManager.GetActiveScene().buildIndex);
+        Load(CurrentSceneIndex,false,false);
     }
-
+    public void LoadWithFade(int sceneIndex)
+    {
+        Load(sceneIndex, false,false);
+    }
     public void Load(int sceneIndex)
     {
         Load(sceneIndex, false);
+    }
+    public void LoadWithoutLoadingScreen(int sceneIndex)
+    {
+        Load(sceneIndex,false,false);
     }
     public void Load(string sceneIndex)
     {
@@ -73,7 +102,7 @@ public class SceneController : ScriptableObject
     }
     public void LoadPreviousScene()
     {
-        int level = SceneManager.GetActiveScene().buildIndex - 1;
+        int level = CurrentSceneIndex - 1;
         if (level >= 0)
             Load(level);
         else
@@ -82,7 +111,7 @@ public class SceneController : ScriptableObject
 
     public void LoadNextScene()
     {
-        int level = SceneManager.GetActiveScene().buildIndex + 1;
+        int level = CurrentSceneIndex + 1;
         if (level < SceneManager.sceneCountInBuildSettings)
             Load(level);
         else

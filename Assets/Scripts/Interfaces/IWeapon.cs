@@ -2,8 +2,8 @@
 
 public interface IWeapon {
 
-    Transform gunTransform { get; }
-
+    Transform GunTransform { get; }
+    WeaponData WeaponData { get; }
     int AmmoLeft { get; }
     bool Shoot();
     void Equip();

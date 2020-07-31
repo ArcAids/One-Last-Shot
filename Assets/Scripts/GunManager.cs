@@ -2,12 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunManager : MonoBehaviour, IWeaponShotListener
+public class GunManager : MonoBehaviour, IWeaponListener
 {
     [SerializeField] WeaponsEventController weaponsEventController;
     [SerializeField] List<WeaponBehaviour> weapons;
     [SerializeField] List<Transform> spawnPoints;
     [SerializeField] GunPointer pointer;
+    [SerializeField] WeaponBehaviour startingGun;
+
+
+    private void Start()
+    {
+        if (startingGun != null && !weaponsEventController.OneShot)
+        {
+            Destroy(startingGun.gameObject);
+            SpawnWeapon();
+        }
+    }
 
     private void OnEnable()
     {
@@ -21,7 +32,7 @@ public class GunManager : MonoBehaviour, IWeaponShotListener
 
     public void OnShot()
     {
-        SpawnWeapon();
+        
     }
 
     void SpawnWeapon()
@@ -30,7 +41,14 @@ public class GunManager : MonoBehaviour, IWeaponShotListener
         int randomWeaponIndex= Random.Range(0, weapons.Count);
 
         WeaponBehaviour gun =Instantiate(weapons[randomWeaponIndex],spawnPoints[randomSpawnPointIndex].transform.position,Quaternion.identity,null);
+        if(!weaponsEventController.OneShot)
+            gun.Reload();
         pointer.SetGun(gun.transform);
 
+    }
+
+    public void OnDequip()
+    {
+        SpawnWeapon();
     }
 }

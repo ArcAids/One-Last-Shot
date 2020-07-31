@@ -8,7 +8,7 @@ public class Disabler : MonoBehaviour
     [SerializeField] bool alsoDestroy;
     [SerializeField] float disableAfter;
 
-    private void Awake()
+    private void OnEnable()
     {
         if(startOnAwake)
             DisableWithDelay();

@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class CharacterDash : MonoBehaviour
 {
 
-    [SerializeField] float dashSpeed=5;
-    [SerializeField] float dashDuration=1;
-    [SerializeField] float dashCoolDown=1;
-    [SerializeField] bool invulnerableWhileDashing=true;
+    [SerializeField] float dashSpeed = 5;
+    [SerializeField] float dashDuration = 1;
+    [SerializeField] float dashCoolDown = 1;
+    [SerializeField] bool invulnerableWhileDashing = true;
     [Space]
     [SerializeField] Image rechargeCircle;
     [Space]
@@ -19,38 +19,45 @@ public class CharacterDash : MonoBehaviour
     new Collider2D collider;
     IDashInput input;
     CharacterMovement movement;
+    HealthBehaviour health;
     Vector3 movementDirection;
 
-    bool canDash=true;
+    bool canDash = true;
     float dashTime;
     float dashRecharge;
-    bool dashing=false;
+    bool dashing = false;
 
-    public bool Dashing { get => dashing; set
+    public bool Dashing
+    {
+        get => dashing; set
         {
             dashing = value;
             if (dashing)
                 OnDashStart();
             else
                 OnDashEnd();
-        } }
+        }
+    }
 
-    public float DashRecharge { get => dashRecharge; private set
+    public float DashRecharge
+    {
+        get => dashRecharge; private set
         {
             dashRecharge = value;
-            rechargeCircle.fillAmount = 1-(value / dashCoolDown);
+            rechargeCircle.fillAmount = 1 - (value / dashCoolDown);
         }
     }
 
     private void Awake()
     {
-        input = GetComponent<IDashInput>();
-        movement = GetComponent<CharacterMovement>();
-        rigidBody = GetComponent<Rigidbody2D>();
-        
+        TryGetComponent(out input);
+        TryGetComponent(out movement);
+        TryGetComponent(out rigidBody);
+        TryGetComponent(out health);
+
         collider = GetComponentInChildren<Collider2D>();
-        if (trail==null)
-            trail=GetComponentInChildren<TrailRenderer>();
+        if (trail == null)
+            trail = GetComponentInChildren<TrailRenderer>();
         movementDirection.z = 0;
         DashRecharge = 0;
         dashing = false;
@@ -59,27 +66,29 @@ public class CharacterDash : MonoBehaviour
     private void Update()
     {
         input.SetDashInputs();
-        if (input.Dash && canDash )
+        if (input.Dash && canDash)
             Dash();
 
-        if(Dashing)
+        if (Dashing)
         {
             dashTime += Time.deltaTime;
             if (dashTime > dashDuration)
             {
                 Dashing = false;
-                DashRecharge= dashCoolDown;
+                DashRecharge = dashCoolDown;
                 dashTime = 0;
                 canDash = false;
             }
         }
-        else if(!canDash)
+        else if (!canDash)
         {
             DashRecharge -= Time.deltaTime;
-            if (DashRecharge<=0)
+            if (DashRecharge <= 0)
             {
                 canDash = true;
-                rechargeCircle.color = Color.white;
+                Color color = Color.white;
+                color.a = rechargeCircle.color.a;
+                rechargeCircle.color = color;
             }
         }
 
@@ -87,13 +96,13 @@ public class CharacterDash : MonoBehaviour
 
     public void Dash()
     {
-        if(!Dashing)
+        if (!Dashing)
         {
             movementDirection.x = input.HorizontalInput;
             movementDirection.y = input.VerticalInput;
-            if(movementDirection.x !=0 || movementDirection.y!= 0)
+            if (movementDirection.x != 0 || movementDirection.y != 0)
                 Dashing = true;
-        }       
+        }
 
     }
 
@@ -102,6 +111,7 @@ public class CharacterDash : MonoBehaviour
         movement?.EnableMovement();
         trail.enabled = false;
         collider.enabled = true;
+        health.IsInvincible = false;
     }
 
     void OnDashStart()
@@ -109,10 +119,17 @@ public class CharacterDash : MonoBehaviour
         trail.Clear();
         trail.enabled = true;
         movement?.DisableMovement(movementDirection.normalized * dashSpeed);
-        rechargeCircle.color = Color.grey;
+
+        Color color = Color.grey;
+        color.a = rechargeCircle.color.a;
+        rechargeCircle.color = color;
+
         rigidBody.velocity = movementDirection.normalized * dashSpeed;
-        if(invulnerableWhileDashing)
+        if (invulnerableWhileDashing)
+        {
             collider.enabled = false;
+            health.IsInvincible = true;
+        }
     }
 
 }

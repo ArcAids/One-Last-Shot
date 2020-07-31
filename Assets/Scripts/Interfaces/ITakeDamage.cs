@@ -4,13 +4,13 @@
 
     bool IsAlive { get; }
     float Health { get; }
-    void TakeDamage(float damage);
+    bool TakeDamage(float damage);
     void OnDeath();
 }
 
 public interface ITakeElementalDamage : ITakeDamage ,IElemental
 {
-    void TakeDamage(float damage, Elements element);
+    bool TakeDamage(float damage, Elements element);
 }
 
 

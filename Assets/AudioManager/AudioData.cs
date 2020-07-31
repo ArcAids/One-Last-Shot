@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace AudioSettings
+namespace ArcAid.Audio
 {
     [CreateAssetMenu()]
     public class AudioData : ScriptableObject
@@ -62,7 +62,7 @@ namespace AudioSettings
             {
                 reciever.AudioMuted(muted);
             }
-            Debug.Log("muted"+muted);
+            //Debug.Log("muted"+muted);
         }
 
         void SetMasterVolume(float value)

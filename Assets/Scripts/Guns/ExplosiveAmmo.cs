@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 public class ExplosiveAmmo : BulletBehaviour
@@ -17,7 +15,7 @@ public class ExplosiveAmmo : BulletBehaviour
     {
         if (!isAlive)
             return;
-        
+
         Explode();
     }
 
@@ -28,16 +26,16 @@ public class ExplosiveAmmo : BulletBehaviour
         // Debug.DrawLine(transform.position - (new Vector3(blastRadius,-blastRadius)), transform.position + (new Vector3(blastRadius, -blastRadius)), Color.red, 5);
 
         if (selected == null)
-            SwitchBlastVFX(element);
-        
+            SwitchBlastVFX(Element);
+
         selected.transform.parent = null;
         selected.transform.localScale = Vector3.one;
         selected.Play();
-        fireBlast.GetComponent<AudioSource>()?.Play(); 
+        fireBlast.GetComponent<AudioSource>()?.Play();
         onExplosion.Invoke();
 
         targets = Physics2D.CircleCastAll(transform.position, blastRadius, Vector2.down);
-        
+
         if (targets != null && targets.Length > 0)
         {
             foreach (var target in targets)
@@ -55,14 +53,14 @@ public class ExplosiveAmmo : BulletBehaviour
     {
         if (target == null)
             return;
-        blastRadiusSqr = Mathf.Pow(blastRadius,2);
+        blastRadiusSqr = Mathf.Pow(blastRadius, 2);
         Vector2 forceDirection = (target.position - new Vector2(transform.position.x, transform.position.y));
         float distanceSqr = forceDirection.sqrMagnitude;
         forceDirection = forceDirection.normalized;
-        distanceSqr = distanceSqr/blastRadiusSqr;
-        distanceSqr = Mathf.Max(0,1-Mathf.Min(1,distanceSqr));
+        distanceSqr = distanceSqr / blastRadiusSqr;
+        distanceSqr = Mathf.Max(0, 1 - Mathf.Min(1, distanceSqr));
         distanceSqr = distanceSqr * distanceSqr;
-        target.velocity += (forceDirection*(1+ shotImpact*distanceSqr));
+        target.velocity += (forceDirection * (1 + shotImpact * distanceSqr));
     }
 
     public override void SwitchElement(Elements element)
