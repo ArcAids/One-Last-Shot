@@ -103,8 +103,9 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
         MouseYDirection = mouseDirection.y;
 #if UNITY_ANDROID
         Shooting = CrossPlatformInputManager.GetButton("Fire");
-#endif
-#if UNITY_STANDALONE || UNITY_EDITOR
+#else
+//#endif
+//#if UNITY_STANDALONE || UNITY_EDITOR 
         Shooting = Input.GetButton("Fire1");
 #endif
 
@@ -119,8 +120,9 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
 #if UNITY_ANDROID
         HorizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
         VerticalInput = CrossPlatformInputManager.GetAxis("Vertical");
-#endif
-#if UNITY_STANDALONE || UNITY_EDITOR
+#else
+        //#endif
+        //#if UNITY_STANDALONE || UNITY_EDITOR 
         HorizontalInput = Input.GetAxis("Horizontal");
         VerticalInput = Input.GetAxis("Vertical");
 #endif
@@ -132,8 +134,9 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
         SetMovementInputs();
 #if UNITY_ANDROID
         Dash = DashUIButton;
-#endif
-#if UNITY_STANDALONE || UNITY_EDITOR
+#else
+        //#endif
+        //#if UNITY_STANDALONE || UNITY_EDITOR 
         Dash = Input.GetButtonDown("Fire2") || DashUIButton;
 #endif
 
@@ -143,10 +146,13 @@ public class PlayerController : MonoBehaviour, ICharacterInput, IWeaponInput, ID
     void UpdateMousePosition()
     {
 
+        float mouseX = CrossPlatformInputManager.GetAxis("Horizontal");
+        float mouseY = CrossPlatformInputManager.GetAxis("Vertical");
 #if UNITY_ANDROID
-        mouseDirection = new Vector2(CrossPlatformInputManager.GetAxis("MouseX")==0?mouseDirection.x: CrossPlatformInputManager.GetAxis("MouseX"), CrossPlatformInputManager.GetAxis("MouseY")==0?mouseDirection.y: CrossPlatformInputManager.GetAxis("MouseY"));
-#endif
-#if UNITY_STANDALONE || UNITY_EDITOR
+        mouseDirection = new Vector2(mouseX==0?mouseDirection.x: mouseX,mouseY==0?mouseDirection.y: mouseY);
+#else
+        //#endif
+        //#if UNITY_STANDALONE || UNITY_EDITOR 
         if (cam != null)
             mouseDirection = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 #endif

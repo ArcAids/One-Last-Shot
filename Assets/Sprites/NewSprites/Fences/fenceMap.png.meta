@@ -87,7 +87,7 @@ TextureImporter:
       213: -896805340635212522
     second: fenceMap_27
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -141,6 +141,7 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -359,10 +360,8 @@ TextureImporter:
       physicsShape:
       - - {x: -12, y: -32}
         - {x: -12, y: 0}
-        - {x: 0, y: 0}
-        - {x: 16, y: -5}
-        - {x: 16, y: -15}
-        - {x: 5, y: -19}
+        - {x: 16, y: 0}
+        - {x: 16, y: -32}
         - {x: 0, y: -32}
       tessellationDetail: 0
       bones: []
@@ -387,11 +386,8 @@ TextureImporter:
       physicsShape:
       - - {x: -16, y: -32}
         - {x: -16, y: 0}
-        - {x: 0, y: 0}
-        - {x: 16, y: -5}
-        - {x: 16, y: -15}
-        - {x: 5, y: -20}
-        - {x: 0, y: -32}
+        - {x: 16, y: 0}
+        - {x: 16, y: -32}
       tessellationDetail: 0
       bones: []
       spriteID: f6da1e004bacc724b8a59b8c6089a02f
@@ -415,11 +411,8 @@ TextureImporter:
       physicsShape:
       - - {x: -16, y: -32}
         - {x: -16, y: 0}
-        - {x: 0, y: 0}
-        - {x: 16, y: -5}
-        - {x: 16, y: -14}
-        - {x: 4, y: -20}
-        - {x: 0, y: -32}
+        - {x: 16, y: 0}
+        - {x: 16, y: -32}
       tessellationDetail: 0
       bones: []
       spriteID: 754def94cee00594a911b12cf3fda2aa
@@ -675,11 +668,9 @@ TextureImporter:
       - - {x: -12, y: -32}
         - {x: -12, y: 32}
         - {x: 0, y: 32}
-        - {x: 3, y: -2}
         - {x: 16, y: -5}
         - {x: 16, y: -15}
-        - {x: 6, y: -20}
-        - {x: 0, y: -32}
+        - {x: 16, y: -32}
       tessellationDetail: 0
       bones: []
       spriteID: 7446076fa4882434ba0927a6b7d791c6
@@ -701,13 +692,12 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 0, y: -31}
-        - {x: -16, y: -14}
+      - - {x: -16, y: -32}
         - {x: -16, y: -5}
         - {x: -5, y: 2}
         - {x: 0, y: 32}
         - {x: 12, y: 32}
-        - {x: 12, y: -31}
+        - {x: 12, y: -32}
       tessellationDetail: 0
       bones: []
       spriteID: 8dd6a6b9f16dc6940988dfa7f7b0d4eb

@@ -18,7 +18,7 @@ public class AIFollowController : MonoBehaviour, ICharacterInput
 
     protected Vector2 defaultDirection;
     protected Vector2 direction;
-    protected GPSinator gps;
+    protected GPSinator gps=null;
     protected bool canMove=false;
     protected float timer=0;
     private void Awake()
@@ -46,8 +46,8 @@ public class AIFollowController : MonoBehaviour, ICharacterInput
         }
         if (target != null)
         {
-            float distance=UpdatePath();
-            if (distance > targetDistance)
+            float sqrDistance=UpdatePath();
+            if (sqrDistance > targetDistance*targetDistance)
                 direction = GetDirectionToTarget(target.position);
             else direction = Vector2.zero;
         }
@@ -62,17 +62,18 @@ public class AIFollowController : MonoBehaviour, ICharacterInput
     protected float UpdatePath()
     {
         if (gps == null || !gps.isReady)
-            return 0;
+            return (target.position-body.position).sqrMagnitude;
 
-        float distance = gps.GetDistance();
+        float sqrDistance = gps.GetSqrDistance();
         if (timer < Time.time)
         {
             gps.UpdatePath();
-            float waitTime = distance * 0.1f;
-            waitTime = Mathf.Clamp(waitTime, 0.1f, 5f);
+            float waitTime = Mathf.Sqrt(sqrDistance) * 0.1f;
+            waitTime = Mathf.Clamp(waitTime, 0.1f, 3f);
             timer = Time.time + waitTime;
+            //gps.ShowPath(waitTime);
         }
-        return distance;
+        return sqrDistance;
 
     }
     protected Vector2 GetDirectionToTarget(Vector3 targetPosition)
@@ -81,7 +82,7 @@ public class AIFollowController : MonoBehaviour, ICharacterInput
         if (gps!=null && gps.isReady)
         {
             direction = gps.GetDirection().normalized;
-            MouseXDirection = direction.normalized.x;
+            MouseXDirection = direction.x;
         }
         else
         {

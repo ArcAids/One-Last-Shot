@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b22ca399a4c8f743b919d23a8ca2220, type: 3}
-  m_Name: NearHouse
+  m_Name: NoMusic
   m_EditorClassIdentifier: 
   dialogues:
   - characterName: Ava
     lines:
-    - At least music is lit.
+    - Should have turned the music on.
   autoScroll: 1
   pauseGame: 0
   mustSpeak: 0

@@ -32,6 +32,7 @@ namespace ArcAid.UI
         public void OnEndDrag(PointerEventData eventData)
         {
             float difference = scrollRect.horizontalNormalizedPosition - currentItemValue;
+            if (difference == 0) return;
             if (Mathf.Abs(difference) > stepThreshold)
             {
                 int direction = difference < 0 ? -1 : 1;

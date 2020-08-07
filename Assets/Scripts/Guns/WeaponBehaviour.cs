@@ -47,7 +47,8 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
             hands.enabled = false;
         Color color = model.color;
         color.a = 0.4f;
-        cam.m_Lens.OrthographicSize = originalOrthographicSize;
+        if(cam!=null)
+            cam.m_Lens.OrthographicSize = originalOrthographicSize;
         model.color = color;
 #if UNITY_ANDROID
         DisableInASecond();
@@ -69,12 +70,16 @@ public class WeaponBehaviour : MonoBehaviour, IElementalWeapon
 
     public void Equip()
     {
-        GetComponent<Collider2D>().enabled = false;
+        Collider2D collider;
         if (hands!= null)
             hands.enabled = true;
-        if(cam==null)
-            cam = FindObjectOfType<Cinemachine.CinemachineVirtualCamera>();
-        cam.m_Lens.OrthographicSize = data.Zoom;
+        if (TryGetComponent(out collider))
+        { 
+            collider.enabled = false;
+            if(cam==null)
+                cam = FindObjectOfType<Cinemachine.CinemachineVirtualCamera>();
+            cam.m_Lens.OrthographicSize = data.Zoom;
+        }
     }
 
     public bool Shoot()

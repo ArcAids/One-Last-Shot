@@ -6,20 +6,31 @@ using UnityEngine.UI;
 public class HealthChunk : MonoBehaviour
 {
     [SerializeField] Image healthBar;
-    bool showWhenEmpty;
-    public void Init(bool showWhenEmpty)
+    HealthHUD healthHUD;
+    public void Init(HealthHUD healthHUD)
     {
-        this.showWhenEmpty = showWhenEmpty;
+        if (!healthHUD) return;
+
+        this.healthHUD = healthHUD;
+        healthHUD.SetOriginalColor(healthBar.color);
         UpdateHealth(0);
     }
 
     public void UpdateHealth(float percentage)
     {
         healthBar.fillAmount = percentage;
-        if (showWhenEmpty)
+        if (healthHUD.FadeIfNotFull)
+        {
+            if (percentage >= 0.99f)
+                healthBar.color = healthHUD.OriginalColor;
+            else
+                healthBar.color = healthHUD.InActiveColor;
+        }
+
+        if (healthHUD.ShowWhenEmpty)
             return;
 
-        if(percentage==0)
+        if (percentage <= 0)
             gameObject.SetActive(false);
         else
             gameObject.SetActive(true);

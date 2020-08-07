@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6194009ace3e624dba83c177188356d, type: 3}
   m_Name: New Scene Controller
   m_EditorClassIdentifier: 
-  tips: []
+  tips:
+  - Follow Red Arrow to easily find new guns.
+  - Sometimes its better to Save your Dash for the right moment.
+  - Rocket launcher is OP and I know it.
+  - Ava has a real nice surround sound system in her house.
+  - One Last Mag has more bullets to fire, but more enemies to fight.
+  - Survival is only for hardcore players.
+  - During Dash Ava is invincible.
+  - Wait for enemies to gather up for efficeint multikill.

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class AIAttack : MonoBehaviour
 {
-    [SerializeField] Transform target;
     [SerializeField] float damage;
     [SerializeField] float delay;
 

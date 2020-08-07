@@ -5,14 +5,25 @@ using UnityEngine;
 public class HealthHUD : MonoBehaviour
 {
     [SerializeField] HealthChunk heart;
-    [SerializeField] bool showEmptyHearts;
+    [SerializeField] int numberOfChunks;
     [SerializeField] float updateSpeed;
+
+    [SerializeField] Color inActiveColor;
+    [SerializeField] bool showWhenEmpty;
+    [SerializeField] bool fadeIfNotFull;
     [SerializeField] AudioSource heartBeat;
     List<HealthChunk> hearts=new List<HealthChunk>();
 
     float currentHealth;
+    float step;
     float currentUIHealth;
-    float maxHealth=0;
+    float maxValue=0;
+    private Color originalColor;
+    int currentChunkIndex=0;
+    public bool FadeIfNotFull { get => fadeIfNotFull; private set => fadeIfNotFull = value; }
+    public bool ShowWhenEmpty { get => showWhenEmpty; private set => showWhenEmpty = value; }
+    public Color InActiveColor { get => inActiveColor; private set => inActiveColor = value; }
+    public Color OriginalColor { get => originalColor; private set => originalColor = value; }
 
     private void OnEnable()
     {
@@ -22,8 +33,7 @@ public class HealthHUD : MonoBehaviour
 
     public void UpdateHealth(float health)
     {
-
-        currentHealth = Mathf.Clamp(health,0,maxHealth);
+        currentHealth = Mathf.Clamp(health,0,maxValue);
         if (gameObject.activeInHierarchy)
         {
             StopAllCoroutines();
@@ -42,32 +52,53 @@ public class HealthHUD : MonoBehaviour
 
     IEnumerator UpdateUI()
     {
-        int index, lastIndex=0;
+        int index;
         while(currentUIHealth!=currentHealth)
         {
             currentUIHealth= Mathf.MoveTowards(currentUIHealth, currentHealth, Time.deltaTime * updateSpeed);
-            index = Mathf.FloorToInt(currentUIHealth);
-            if (lastIndex != index) hearts[lastIndex].UpdateHealth(index-lastIndex);
-            if (index < hearts.Count)
-            {
-                hearts[index].UpdateHealth(currentUIHealth - index);
-                lastIndex = index;
-            }
+            index = Mathf.FloorToInt(currentUIHealth* step);
+
+            if (index <= hearts.Count && currentChunkIndex != index)
+                //hearts[currentChunkIndex].UpdateHealth((index-currentChunkIndex));
+                MoveToNewUIChunkIndex(index);
+
+
+                hearts[currentChunkIndex].UpdateHealth(step* currentUIHealth - currentChunkIndex);
+            
             yield return null;
         }
     }
 
-    public void SetMaxHealth(float value)
+    void MoveToNewUIChunkIndex(int newIndex)
     {
-        if (maxHealth < value)
+        int timer=0;
+        while(timer < 100 && currentChunkIndex !=newIndex)
         {
-            for (int i = 0; i < Mathf.CeilToInt(value - maxHealth); i++)
-            {
-                HealthChunk health=Instantiate(heart, transform);
-                health.Init(showEmptyHearts);
-                hearts.Add(health);
-            }
-            maxHealth = value;
+            hearts[currentChunkIndex].UpdateHealth(newIndex>currentChunkIndex?1:0);
+            currentChunkIndex=Mathf.Clamp(Mathf.FloorToInt(Mathf.MoveTowards(currentChunkIndex, newIndex, 1)),0,hearts.Count-1);
+            timer++;
+        }    
+    }
+
+    public void SetUpChunks(float maxValue, int numberOfChunks = -1)
+    {
+        if (numberOfChunks > 0)
+            this.numberOfChunks = numberOfChunks;
+
+        for (int i = 0; i < this.numberOfChunks; i++)
+        {
+            HealthChunk health=Instantiate(heart, transform);
+            //health.transform.SetAsFirstSibling();
+            health.Init(this);
+            hearts.Add(health);
         }
+        this.maxValue = maxValue;
+        step = this.numberOfChunks / this.maxValue;
+        
+    }
+
+    public void SetOriginalColor(Color color)
+    {
+        OriginalColor = color;
     }
 }

@@ -14,16 +14,21 @@ public class GameOverUI : MonoBehaviour
     
     private void OnEnable()
     {
+        SetInteractable(false);
         currentWave.text = "Waves Survived:"+ manager.currentWave;
         enemiesKilled.text = "Creatures Killed:"+ enemyManager.totalEnemiesKilled;
         bossesKilled.text = "Bosses Killed:"+ enemyManager.totalBossesKilled;
-        Invoke("SetInteractable", 3);
+        Invoke("SetInteractable", 2);
     }
 
     void SetInteractable()
     {
+        SetInteractable(true);
+    }
+    void SetInteractable(bool value)
+    {
         Button button;
         if(TryGetComponent(out button))
-            button.interactable = true;
+            button.interactable = value;
     }
 }

@@ -13,7 +13,7 @@ public class HealthBehaviour : MonoBehaviour , ITakeDamage
     [SerializeField] HealthHUD playerHealthUI;
     [SerializeField] UnityEvent onDeathEvent;
     [SerializeField] UnityEvent onDamageTaken;
-    public float Health { get => health; protected set { health = value < 0 ? 0 : value; if (playerHealthUI != null)
+    public float Health { get => health; protected set { health = Mathf.Clamp(value, 0,MaxHealth); if (playerHealthUI != null)
                 //playerHealth.fillAmount = (value / MaxHealth);
                 playerHealthUI.UpdateHealth(health);
                 } }
@@ -28,7 +28,7 @@ public class HealthBehaviour : MonoBehaviour , ITakeDamage
     }
     protected virtual void Init()
     {
-        playerHealthUI?.SetMaxHealth(MaxHealth);
+        playerHealthUI?.SetUpChunks(MaxHealth);//,Mathf.CeilToInt(MaxHealth));
         Health = health;
         //Health = MaxHealth;
         //Debug.Log(name);

@@ -17,10 +17,10 @@ MonoBehaviour:
   exposedMasterVolumeName: MasterVolume
   exposedMusicVolumeName: MusicVolume
   exposedSFXVolumeName: SFXVolume
-  muted: 1
-  musicVolume: 0.68720454
-  masterVolume: 0.77128875
-  sfxVolume: 0.25267053
+  muted: 0
+  musicVolume: 1
+  masterVolume: 1
+  sfxVolume: 1
   volumeCurve:
     serializedVersion: 2
     m_Curve:

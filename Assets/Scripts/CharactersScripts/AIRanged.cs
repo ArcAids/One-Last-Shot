@@ -20,9 +20,9 @@ public class AIRanged : AIFollowController, IWeaponInput
         }
         if (target != null)
         {
-            float distance = UpdatePath();
+            float sqrDistance = UpdatePath();
             direction = GetDirectionToTarget(target.position);
-            if (distance < targetDistance)
+            if (sqrDistance < targetDistance*targetDistance)
             {
                 StartCoroutine(Shoot());
 

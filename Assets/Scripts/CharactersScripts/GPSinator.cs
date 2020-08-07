@@ -41,8 +41,23 @@ public class GPSinator
         }
     }
 
+    public void ShowPath(float duration=1)
+    {
+        if (path == null || !isReady) return;
+
+        for (int i = 0; i < path.Length-2; i++)
+        {
+            Debug.DrawLine(path[i], path[i + 1],Color.red,duration);
+        }
+    }
+
     public float GetDistance(){
         return Vector3.Distance(target.position,self.position);
+    }
+
+    public float GetSqrDistance()
+    {
+        return (target.position - self.position).sqrMagnitude;
     }
 
     public Vector2 GetDirection()

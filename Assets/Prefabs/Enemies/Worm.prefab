@@ -5287,6 +5287,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8755363600283759100}
+        m_MethodName: set_isKinematic
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDamageTaken:
     m_PersistentCalls:
       m_Calls:
@@ -5404,7 +5415,7 @@ MonoBehaviour:
   target: {fileID: 0}
   eatsCorpse: 1
   config: {fileID: 11400000, guid: c31c0caf411fba342bb9b76827fa5a2e, type: 2}
-  targetDistance: 1
+  targetDistance: 0.6
 --- !u!114 &8755363600283759043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5417,7 +5428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d30efbce231e240b2ac661a7bb5371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   damage: 1
   delay: 0.5
 --- !u!114 &1366820247

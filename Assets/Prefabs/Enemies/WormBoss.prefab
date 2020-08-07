@@ -4921,7 +4921,7 @@ MonoBehaviour:
   - {x: -1.0341661, y: 0.49270743, z: 0}
   m_ShapePathHash: -922398709
   m_Mesh: {fileID: 0}
-  m_InstanceId: 44900
+  m_InstanceId: 131270
 --- !u!1 &3135891237848675919
 GameObject:
   m_ObjectHideFlags: 0
@@ -5170,7 +5170,6 @@ GameObject:
   - component: {fileID: 8641299679113429005}
   - component: {fileID: 8641299679113429006}
   - component: {fileID: 8755363600283759100}
-  - component: {fileID: 8755363600283759101}
   - component: {fileID: 8755363600283759102}
   - component: {fileID: 8755363600283759042}
   - component: {fileID: 8755363600283759043}
@@ -5178,6 +5177,7 @@ GameObject:
   - component: {fileID: 3773531200489166726}
   - component: {fileID: 2644657368740160210}
   - component: {fileID: 1917636439}
+  - component: {fileID: 7812789558441604565}
   m_Layer: 8
   m_Name: WormBoss
   m_TagString: Untagged
@@ -5287,6 +5287,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8755363600283759100}
+        m_MethodName: set_isKinematic
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDamageTaken:
     m_PersistentCalls:
       m_Calls:
@@ -5337,32 +5348,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &8755363600283759101
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8641299679113429041}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1, y: 3.1}
-    newSize: {x: 0.22, y: 0.62}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2, y: 1}
-  m_EdgeRadius: 0
 --- !u!61 &8755363600283759102
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5404,7 +5389,7 @@ MonoBehaviour:
   target: {fileID: 0}
   eatsCorpse: 1
   config: {fileID: 11400000, guid: c31c0caf411fba342bb9b76827fa5a2e, type: 2}
-  targetDistance: 1
+  targetDistance: 0.6
 --- !u!114 &8755363600283759043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5417,7 +5402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d30efbce231e240b2ac661a7bb5371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   damage: 1
   delay: 0.5
 --- !u!114 &5669728558282656117
@@ -5518,6 +5502,22 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!70 &7812789558441604565
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8641299679113429041}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.2}
+  m_Size: {x: 1.61, y: 0.33}
+  m_Direction: 1
 --- !u!1001 &3070554508122635299
 PrefabInstance:
   m_ObjectHideFlags: 0
